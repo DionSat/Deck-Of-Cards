@@ -2,7 +2,27 @@
   color: #a020f0;
 }
 
-#root, #root > div {
+#root,
+#root > div {
   height: 100vh;
   width: 100vw;
+}
+
+.blackjack-table {
+  width: 240px;
+  height: 240px;
+  background-color: #008000;
+  background-image: radial-gradient(#006400 15%, transparent 15%),
+    radial-gradient(#006400 15%, transparent 15%);
+  background-size: 9px 9px;
+  background-position: 0 0, 30px 30px;
+  background-repeat: repeat;
+  border-bottom: 40px solid #2f1000;
+  border-bottom-left-radius: 90%;
+  border-bottom-right-radius: 90%;
+  height: 95%;
+}
+
+.blackjack-bet {
+  max-width: 100px;
 }
