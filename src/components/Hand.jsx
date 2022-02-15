@@ -1,22 +1,14 @@
 import React from "react";
-import axios from "axios";
 
-export default function Hand({ deckId }) {
-  const [hand, setHand] = React.useState(null);
-  const [total, setTotal] = React.useState(0);
-
+export default function Hand({ hand, total, setTotal }) {
   React.useEffect(() => {
-    if (!deckId) return;
-    axios
-      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
-      .then((res) => {
-        console.log(res.data.cards);
-        setHand(res.data.cards);
-      })
-      .catch((error) => console.log(error.message));
-  }, [deckId]);
-
-  if (!hand) return "";
+    let newTotal = 0;
+    hand.forEach((card) => {
+      if (!isNaN(card.value)) newTotal += parseInt(card.value);
+      else newTotal += 10;
+    });
+    setTotal(newTotal);
+  }, [hand]);
 
   return (
     <div className="d-flex flex-row align-items-center">
@@ -24,16 +16,20 @@ export default function Hand({ deckId }) {
         {total}
       </div>
       <div className="m-5">
-        {hand.map((card, index) => {
-          return (
-            <img
-              src={card.images.png}
-              height="150px"
-              width="100px"
-              key={index}
-            />
-          );
-        })}
+        {hand ? (
+          hand.map((card, index) => {
+            return (
+              <img
+                src={card.images.png}
+                height="150px"
+                width="100px"
+                key={index}
+              />
+            );
+          })
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );

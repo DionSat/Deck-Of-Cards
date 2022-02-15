@@ -2,35 +2,99 @@ import React from "react";
 import axios from "axios";
 import { Button, ButtonGroup, Container, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
+import Toasts from "./Toasts.jsx";
 
 export default function Play() {
   const [deckId, setDeckId] = React.useState(null);
+  const [yourHand, setYourHand] = React.useState([]);
+  const [yourTotal, setYourTotal] = React.useState(0);
+  const [dealerHand, setDealerHand] = React.useState([]);
+  const [dealerTotal, setDealerTotal] = React.useState(0);
+  const [show, setShow] = React.useState(false);
+  const [color, setColor] = React.useState("");
+  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
-    axios
-      .get(`https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6`)
-      .then((res) => {
-        console.log(res.data);
-        setDeckId(res.data.deck_id);
-      })
-      .catch((error) => console.log(error.message));
+    const getDeckId = async () => {
+      const response = await axios
+        .get(
+          `https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`
+        )
+        .catch((error) => console.log(error.message));
+
+      setDeckId(response.data.deck_id);
+    };
+
+    getDeckId();
   }, []);
+
+  const newRound = (e) => {
+    const dealYourOpeningHand = async () => {
+      const response = await axios
+        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
+        .catch((error) => console.log(error));
+
+      setYourHand(response.data.cards);
+    };
+
+    const dealDealersOpeningHand = async () => {
+      const response = await axios
+        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+        .catch((error) => console.log(error));
+
+      setDealerHand(response.data.cards);
+    };
+
+    dealYourOpeningHand();
+    dealDealersOpeningHand();
+    document.getElementById("deal-button").classList.add("disabled");
+    document.getElementById("hit-button").classList.remove("disabled");
+  };
+
+  const hitMe = async () => {
+    const drawOne = async () => {
+      const response = await axios
+        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+        .catch((error) => console.log(error));
+
+      let newHand = [];
+      yourHand.forEach((card) => newHand.push(card));
+      newHand.push(response.data.cards[0]);
+      setYourHand(newHand);
+    };
+
+    drawOne();
+    if (yourTotal > 21) {
+      document.getElementById("deal-button").classList.remove("disabled");
+      document.getElementById("hit-button").classList.add("disabled");
+      setMessage("Bust!");
+      setColor("light");
+      setShow(true);
+    }
+  };
 
   return (
     <Container fluid className="bg-dark p-0 h-100">
       <Button className="position-absolute top-0 left-0 m-3" href="/" size="lg">
         Back
       </Button>
+      <div className="position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100">
+        <Toasts message={message} color={color} show={show} setShow={setShow} />
+      </div>
       <Container
         fluid
         className="blackjack-table d-flex flex-column justify-content-around"
         id="blackjack-table"
       >
         <Container className="d-flex justify-content-center">
-          <Hand deckId={deckId} />
+          <Hand
+            hand={dealerHand}
+            total={dealerTotal}
+            setTotal={setDealerTotal}
+          />
         </Container>
         <Container className="d-flex justify-content-center">
-          <Hand deckId={deckId} />
+          <Hand hand={yourHand} total={yourTotal} setTotal={setYourTotal} />
         </Container>
       </Container>
       <div
@@ -49,10 +113,21 @@ export default function Play() {
       </div>
       <Stack>
         <ButtonGroup className="position-absolute bottom-0 end-0 m-4 w-25">
-          <Button>Hit</Button>
-          <Button>Stand</Button>
-          <Button>Double</Button>
-          <Button>Split</Button>
+          <Button id="deal-button" onClick={newRound} variant="success">
+            Deal
+          </Button>
+          <Button id="hit-button" className="disabled" onClick={hitMe}>
+            Hit
+          </Button>
+          <Button id="stand-button" className="disabled">
+            Stand
+          </Button>
+          <Button id="double-button" className="disabled">
+            Double
+          </Button>
+          <Button id="split-button" className="disabled">
+            Split
+          </Button>
         </ButtonGroup>
       </Stack>
     </Container>
