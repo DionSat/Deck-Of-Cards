@@ -1,10 +1,10 @@
 import React from "react";
 import { Toast } from "react-bootstrap";
 
-export default function Toasts({ message, color, show, setShow }) {
+export default function Toasts({ message, show, setShow }) {
   return (
     <Toast
-      bg={color}
+      bg="light"
       onClose={() => setShow(false)}
       show={show}
       delay={3000}

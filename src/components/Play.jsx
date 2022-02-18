@@ -1,18 +1,21 @@
 import React from "react";
 import axios from "axios";
-import { Button, ButtonGroup, Container, Stack } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
+import { Navigate } from "react-router-dom";
 
-export default function Play() {
+export default function Play({ defaultWinnings, defaultMinimum }) {
   const [deckId, setDeckId] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [yourTotal, setYourTotal] = React.useState(0);
   const [dealerHand, setDealerHand] = React.useState([]);
   const [dealerTotal, setDealerTotal] = React.useState(0);
   const [show, setShow] = React.useState(false);
-  const [color, setColor] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
+  const [bet, setBet] = React.useState(defaultMinimum || 5);
+  const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
 
   React.useEffect(() => {
     const getDeckId = async () => {
@@ -27,6 +30,11 @@ export default function Play() {
 
     getDeckId();
   }, []);
+
+  const adjustBet = (e) => {
+    if (e.target.value <= winnings && e.target.value >= minimum)
+      setBet(e.target.value);
+  };
 
   const newRound = (e) => {
     const dealYourOpeningHand = async () => {
@@ -49,6 +57,25 @@ export default function Play() {
     dealDealersOpeningHand();
     document.getElementById("deal-button").classList.add("disabled");
     document.getElementById("hit-button").classList.remove("disabled");
+    document.getElementById("stand-button").classList.remove("disabled");
+  };
+
+  const stand = async () => {
+    const drawOne = async () => {
+      const response = await axios
+        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+        .catch((error) => console.log(error));
+
+      let newHand = [];
+      dealerHand.forEach((card) => newHand.push(card));
+      newHand.push(response.data.cards[0]);
+      setDealerHand(newHand);
+    };
+
+    document.getElementById("hit-button").classList.add("disabled");
+    document.getElementById("stand-button").classList.add("disabled");
+    drawOne();
+    document.getElementById("deal-button").classList.remove("disabled");
   };
 
   const hitMe = async () => {
@@ -67,19 +94,19 @@ export default function Play() {
     if (yourTotal > 21) {
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
+      document.getElementById("stand-button").classList.add("disabled");
       setMessage("Bust!");
-      setColor("light");
       setShow(true);
     }
   };
 
   return (
     <Container fluid className="bg-dark p-0 h-100">
-      <Button className="position-absolute top-0 left-0 m-3" href="/" size="lg">
-        Back
-      </Button>
+        <Button className="position-absolute top-0 left-0 m-3" size="lg">
+          Back
+        </Button>
       <div className="position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100">
-        <Toasts message={message} color={color} show={show} setShow={setShow} />
+        <Toasts message={message} show={show} setShow={setShow} />
       </div>
       <Container
         fluid
@@ -102,14 +129,22 @@ export default function Play() {
         style={{ boxShadow: "5px 5px #b22222" }}
       >
         <h4 style={{ marginRight: "20px" }}>Bet</h4>
-        <input className="text-center blackjack-bet" type="number" min="1" />
+        <Form>
+          <input
+            onChange={adjustBet}
+            className="text-center blackjack-bet"
+            value={bet}
+            type="number"
+            min="1"
+          />
+        </Form>
       </div>
       <div
         className="d-flex flex-column bg-light position-absolute top-0 end-0 rounded m-4 py-1 px-4"
         style={{ boxShadow: "5px 5px #b22222" }}
       >
         <h4>Winnings</h4>
-        <h4 className="text-center">0</h4>
+        <h4 className="text-center">{winnings}</h4>
       </div>
       <Stack>
         <ButtonGroup className="position-absolute bottom-0 end-0 m-4 w-25">
@@ -119,7 +154,7 @@ export default function Play() {
           <Button id="hit-button" className="disabled" onClick={hitMe}>
             Hit
           </Button>
-          <Button id="stand-button" className="disabled">
+          <Button id="stand-button" className="disabled" onClick={stand}>
             Stand
           </Button>
           <Button id="double-button" className="disabled">
