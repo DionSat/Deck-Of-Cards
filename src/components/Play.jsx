@@ -32,8 +32,9 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
   }, []);
 
   const adjustBet = (e) => {
-    if (e.target.value <= winnings && e.target.value >= minimum)
-      setBet(e.target.value);
+    if (e.target.value <= 1000 && e.target.value >= minimum) {
+      setBet(parseInt(e.target.value));
+    }
   };
 
   const newRound = (e) => {
@@ -58,6 +59,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     document.getElementById("deal-button").classList.add("disabled");
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
+    document.getElementById("double-button").classList.remove("disabled");
   };
 
   const stand = async () => {
@@ -78,19 +80,30 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     document.getElementById("deal-button").classList.remove("disabled");
   };
 
+  const drawOne = async () => {
+    const response = await axios
+      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .catch((error) => console.log(error));
+
+    let newHand = [];
+    yourHand.forEach((card) => newHand.push(card));
+    newHand.push(response.data.cards[0]);
+    setYourHand(newHand);
+  };
+
   const HitMe = async () => {
-    const drawOne = async () => {
-      const response = await axios
-        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
-        .catch((error) => console.log(error));
-
-      let newHand = [];
-      yourHand.forEach((card) => newHand.push(card));
-      newHand.push(response.data.cards[0]);
-      setYourHand(newHand);
-    };
-
     drawOne();
+  };
+
+  const doubleBet = async () => {
+    let currentBet = document.getElementById("betWindow");
+    currentBet.value = bet * 2;
+    setBet(currentBet.value);
+    drawOne();
+    document.getElementById("deal-button").classList.remove("disabled");
+    document.getElementById("hit-button").classList.add("disabled");
+    document.getElementById("stand-button").classList.add("disabled");
+    document.getElementById("double-button").classList.add("disabled");
   };
 
   React.useEffect(() => {
@@ -98,6 +111,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
+      document.getElementById("double-button").classList.add("disabled");
       setMessage("Bust!");
       setShow(true);
     }
@@ -139,6 +153,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
             value={bet}
             type="number"
             min="1"
+            id="betWindow"
           />
         </Form>
       </div>
@@ -160,7 +175,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
           <Button id="stand-button" className="disabled" onClick={stand}>
             Stand
           </Button>
-          <Button id="double-button" className="disabled">
+          <Button id="double-button" className="disabled" onClick={doubleBet}>
             Double
           </Button>
           <Button id="split-button" className="disabled">
