@@ -78,7 +78,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     document.getElementById("deal-button").classList.remove("disabled");
   };
 
-  const hitMe = async () => {
+  const HitMe = async () => {
     const drawOne = async () => {
       const response = await axios
         .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
@@ -91,6 +91,9 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     };
 
     drawOne();
+  };
+
+  React.useEffect(() => {
     if (yourTotal > 21) {
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
@@ -98,13 +101,13 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
       setMessage("Bust!");
       setShow(true);
     }
-  };
+  }, [yourTotal]);
 
   return (
     <Container fluid className="bg-dark p-0 h-100">
-        <Button className="position-absolute top-0 left-0 m-3" size="lg">
-          Back
-        </Button>
+      <Button className="position-absolute top-0 left-0 m-3" size="lg">
+        Back
+      </Button>
       <div className="position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100">
         <Toasts message={message} show={show} setShow={setShow} />
       </div>
@@ -151,7 +154,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
           <Button id="deal-button" onClick={newRound} variant="success">
             Deal
           </Button>
-          <Button id="hit-button" className="disabled" onClick={hitMe}>
+          <Button id="hit-button" className="disabled" onClick={HitMe}>
             Hit
           </Button>
           <Button id="stand-button" className="disabled" onClick={stand}>
