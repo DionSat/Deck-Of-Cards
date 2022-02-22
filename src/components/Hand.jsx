@@ -5,7 +5,8 @@ export default function Hand({ hand, total, setTotal }) {
     let newTotal = 0;
     hand.forEach((card) => {
       if (!isNaN(card.value)) newTotal += parseInt(card.value);
-      else if (card.value === "ACE") newTotal += 11;
+      else if (card.value === "ACE" && newTotal + 11 < 21) newTotal += 11;
+      else if (card.value === "ACE" && newTotal + 11 > 21) newTotal += 1;
       else newTotal += 10;
     });
     setTotal(newTotal);
