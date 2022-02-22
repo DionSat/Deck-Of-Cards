@@ -3,11 +3,19 @@ import React from "react";
 export default function Hand({ hand, total, setTotal }) {
   React.useEffect(() => {
     let newTotal = 0;
+    let currentAces = [];
     hand.forEach((card) => {
       if (!isNaN(card.value)) newTotal += parseInt(card.value);
-      else if (card.value === "ACE" && newTotal + 11 < 21) newTotal += 11;
-      else if (card.value === "ACE" && newTotal + 11 > 21) newTotal += 1;
-      else newTotal += 10;
+      else if (card.value === "ACE") {
+        currentAces.push(card.value);
+      } else newTotal += 10;
+    });
+    currentAces.forEach((card) => {
+      if (newTotal + 11 <= 21) {
+        newTotal += 11;
+      } else {
+        newTotal += 1;
+      }
     });
     setTotal(newTotal);
   }, [hand]);
