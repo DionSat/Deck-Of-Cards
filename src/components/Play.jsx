@@ -127,6 +127,15 @@ export default function Play({
   }, [yourTotal]);
 
   React.useEffect(() => {
+    //Check if the start of the game
+    if (yourHand.length === 2) {
+      if (yourHand[0].value === yourHand[1].value) {
+        document.getElementById("split-button").classList.remove("disabled");
+      }
+    }
+  }, [yourHand]);
+
+  const splitBet = async () => {
     let duplicates = [];
     let handValues = [];
     yourHand.forEach((card) => {
@@ -140,12 +149,7 @@ export default function Play({
         duplicates.push(tempArray[i]);
       }
     }
-    if (duplicates.length > 0) {
-      document.getElementById("split-button").classList.remove("disabled");
-    }
-  }, [yourHand]);
-
-  const splitBet = async () => {};
+  };
 
   React.useEffect(() => {
     if (dealerHand.length <= 1) return;
