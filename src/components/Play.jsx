@@ -3,9 +3,8 @@ import axios from "axios";
 import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
-import { Navigate } from "react-router-dom";
 
-export default function Play({ defaultWinnings, defaultMinimum }) {
+export default function Play({ defaultPayout, defaultWinnings, defaultMinimum }) {
   const [deckId, setDeckId] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [yourTotal, setYourTotal] = React.useState(0);
@@ -13,6 +12,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
   const [dealerTotal, setDealerTotal] = React.useState(0);
   const [show, setShow] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const [payout, setPayout] = React.useState(defaultPayout || 1.5);
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
   const [bet, setBet] = React.useState(defaultMinimum || 5);
   const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
@@ -32,8 +32,13 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
   }, []);
 
   const adjustBet = (e) => {
-    if (e.target.value <= 1000 && e.target.value >= minimum) {
-      setBet(parseInt(e.target.value));
+    if (e.target.value <= 1000 && e.target.value >= 1) {
+      if(e.target.value >= winnings)
+        setBet(winnings);
+      else if(e.target.value < minimum)
+        setBet(minimum);
+      else
+        setBet(e.target.value);
     }
   };
 
@@ -60,24 +65,25 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
+    document.getElementById("betWindow").disabled = true;
   };
 
   const stand = async () => {
-    const drawOne = async () => {
-      const response = await axios
-        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
-        .catch((error) => console.log(error));
-
-      let newHand = [];
-      dealerHand.forEach((card) => newHand.push(card));
-      newHand.push(response.data.cards[0]);
-      setDealerHand(newHand);
-    };
-
     document.getElementById("hit-button").classList.add("disabled");
     document.getElementById("stand-button").classList.add("disabled");
-    drawOne();
     document.getElementById("deal-button").classList.remove("disabled");
+    document.getElementById("double-button").classList.add("disabled");
+    document.getElementById("betWindow").disabled = false;
+    setTimeout(() => dealerDraw(), 1000);
+  };
+
+  const dealerDraw = async () => {
+    const response = await axios
+      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .catch((error) => console.log(error));
+
+    let newHand = [...dealerHand, ...response.data.cards];
+    setDealerHand(newHand);
   };
 
   const drawOne = async () => {
@@ -85,13 +91,12 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
       .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
       .catch((error) => console.log(error));
 
-    let newHand = [];
-    yourHand.forEach((card) => newHand.push(card));
-    newHand.push(response.data.cards[0]);
+    let newHand = [...yourHand, ...response.data.cards];
     setYourHand(newHand);
   };
 
-  const HitMe = async () => {
+  const hitMe = async () => {
+    document.getElementById("betWindow").disabled = true;
     drawOne();
   };
 
@@ -104,6 +109,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
     document.getElementById("hit-button").classList.add("disabled");
     document.getElementById("stand-button").classList.add("disabled");
     document.getElementById("double-button").classList.add("disabled");
+    setTimeout(() => dealerDraw(), 1000);
   };
 
   React.useEffect(() => {
@@ -111,11 +117,47 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
-      document.getElementById("double-button").classList.add("disabled");
-      setMessage("Bust!");
+      document.getElementById("double-button").classList.add("disabled");    
+      document.getElementById("betWindow").disabled = false;
+      setMessage(`Bust! -${bet}`);
       setShow(true);
+      setWinnings(winnings - bet);
     }
   }, [yourTotal]);
+
+  React.useEffect(() => {
+    if(dealerHand.length <= 1) return;
+    else if(dealerTotal < 17) {
+      setTimeout(() => dealerDraw(), 1000);
+    }
+    else if(dealerTotal > 21 || dealerTotal < yourTotal) {
+      setMessage(`You win! +${Math.floor(payout * bet)}`);
+      setShow(true);
+      setWinnings(Math.floor(payout * bet) + winnings);
+    }
+    else if(dealerTotal === yourTotal) {
+      setMessage("Push! +/-0")
+      setShow(true);
+    }
+    else {
+      setMessage(`You lose! -${bet}`)
+      setShow(true);
+      setWinnings(winnings - bet);
+    }
+
+  }, [dealerTotal]);
+
+  React.useEffect(() => {
+    if(winnings <= 0) {
+      document.getElementById("deal-button").classList.add("disabled");
+      document.getElementById("hit-button").classList.add("disabled");
+      document.getElementById("stand-button").classList.add("disabled");
+      document.getElementById("double-button").classList.add("disabled");    
+      document.getElementById("betWindow").disabled = true;
+      setMessage("Game over!");
+      setShow(true);
+    }
+  }, [winnings]);
 
   return (
     <Container fluid className="bg-dark p-0 h-100">
@@ -169,7 +211,7 @@ export default function Play({ defaultWinnings, defaultMinimum }) {
           <Button id="deal-button" onClick={newRound} variant="success">
             Deal
           </Button>
-          <Button id="hit-button" className="disabled" onClick={HitMe}>
+          <Button id="hit-button" className="disabled" onClick={hitMe}>
             Hit
           </Button>
           <Button id="stand-button" className="disabled" onClick={stand}>
