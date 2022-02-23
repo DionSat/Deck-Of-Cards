@@ -4,7 +4,11 @@ import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
 
-export default function Play({ defaultPayout, defaultWinnings, defaultMinimum }) {
+export default function Play({
+  defaultPayout,
+  defaultWinnings,
+  defaultMinimum,
+}) {
   const [deckId, setDeckId] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [yourTotal, setYourTotal] = React.useState(0);
@@ -33,12 +37,9 @@ export default function Play({ defaultPayout, defaultWinnings, defaultMinimum })
 
   const adjustBet = (e) => {
     if (e.target.value <= 1000 && e.target.value >= 1) {
-      if(e.target.value >= winnings)
-        setBet(winnings);
-      else if(e.target.value < minimum)
-        setBet(minimum);
-      else
-        setBet(e.target.value);
+      if (e.target.value >= winnings) setBet(winnings);
+      else if (e.target.value < minimum) setBet(minimum);
+      else setBet(e.target.value);
     }
   };
 
@@ -117,7 +118,7 @@ export default function Play({ defaultPayout, defaultWinnings, defaultMinimum })
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
-      document.getElementById("double-button").classList.add("disabled");    
+      document.getElementById("double-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = false;
       setMessage(`Bust! -${bet}`);
       setShow(true);
@@ -126,33 +127,50 @@ export default function Play({ defaultPayout, defaultWinnings, defaultMinimum })
   }, [yourTotal]);
 
   React.useEffect(() => {
-    if(dealerHand.length <= 1) return;
-    else if(dealerTotal < 17) {
-      setTimeout(() => dealerDraw(), 1000);
+    let duplicates = [];
+    let handValues = [];
+    yourHand.forEach((card) => {
+      handValues.push(card.value);
+    });
+    //sort the yourhand values
+    const tempArray = [...handValues].sort();
+
+    for (let i = 0; i < tempArray.length; i++) {
+      if (tempArray[i + 1] === tempArray[i]) {
+        duplicates.push(tempArray[i]);
+      }
     }
-    else if(dealerTotal > 21 || dealerTotal < yourTotal) {
+    if (duplicates.length > 0) {
+      document.getElementById("split-button").classList.remove("disabled");
+    }
+  }, [yourHand]);
+
+  const splitBet = async () => {};
+
+  React.useEffect(() => {
+    if (dealerHand.length <= 1) return;
+    else if (dealerTotal < 17) {
+      setTimeout(() => dealerDraw(), 1000);
+    } else if (dealerTotal > 21 || dealerTotal < yourTotal) {
       setMessage(`You win! +${Math.floor(payout * bet)}`);
       setShow(true);
       setWinnings(Math.floor(payout * bet) + winnings);
-    }
-    else if(dealerTotal === yourTotal) {
-      setMessage("Push! +/-0")
+    } else if (dealerTotal === yourTotal) {
+      setMessage("Push! +/-0");
       setShow(true);
-    }
-    else {
-      setMessage(`You lose! -${bet}`)
+    } else {
+      setMessage(`You lose! -${bet}`);
       setShow(true);
       setWinnings(winnings - bet);
     }
-
   }, [dealerTotal]);
 
   React.useEffect(() => {
-    if(winnings <= 0) {
+    if (winnings <= 0) {
       document.getElementById("deal-button").classList.add("disabled");
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
-      document.getElementById("double-button").classList.add("disabled");    
+      document.getElementById("double-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = true;
       setMessage("Game over!");
       setShow(true);
