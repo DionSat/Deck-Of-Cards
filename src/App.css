@@ -26,3 +26,7 @@
 .blackjack-bet {
   max-width: 100px;
 }
+
+#carousel_caption {
+  text-shadow: 3px 3px 1px black;
+}
