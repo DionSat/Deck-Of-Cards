@@ -23,6 +23,7 @@ export default function Play({
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
   const [bet, setBet] = React.useState(defaultMinimum || 5);
   const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
+  const [didSecondStand, setDidSecondStand] = React.useState(false);
 
   React.useEffect(() => {
     const getDeckId = async () => {
@@ -74,12 +75,23 @@ export default function Play({
   };
 
   const stand = async () => {
-    document.getElementById("hit-button").classList.add("disabled");
-    document.getElementById("stand-button").classList.add("disabled");
-    document.getElementById("deal-button").classList.remove("disabled");
-    document.getElementById("double-button").classList.add("disabled");
-    document.getElementById("betWindow").disabled = false;
-    setTimeout(() => dealerDraw(), 1000);
+    if (secondHand.length > 0 && !didSecondStand) {
+      setDidSecondStand(true);
+    } else if (secondHand.length > 0 && didSecondStand) {
+      document.getElementById("hit-button").classList.add("disabled");
+      document.getElementById("stand-button").classList.add("disabled");
+      document.getElementById("deal-button").classList.remove("disabled");
+      document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("betWindow").disabled = false;
+      setTimeout(() => dealerDraw(), 1000);
+    } else {
+      document.getElementById("hit-button").classList.add("disabled");
+      document.getElementById("stand-button").classList.add("disabled");
+      document.getElementById("deal-button").classList.remove("disabled");
+      document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("betWindow").disabled = false;
+      setTimeout(() => dealerDraw(), 1000);
+    }
   };
 
   const dealerDraw = async () => {
@@ -111,9 +123,10 @@ export default function Play({
 
   const hitMe = async () => {
     document.getElementById("betWindow").disabled = true;
-    if (secondHand.length > 0) {
-      drawOne();
+    if (secondHand.length > 0 && !didSecondStand) {
       drawOneSecondHand();
+    } else if (secondHand.length > 0 && didSecondStand) {
+      drawOne();
     } else {
       drawOne();
     }
@@ -142,6 +155,17 @@ export default function Play({
       setShow(true);
       setWinnings(winnings - bet);
     }
+    if (secondTotal > 21) {
+      document.getElementById("deal-button").classList.remove("disabled");
+      document.getElementById("hit-button").classList.add("disabled");
+      document.getElementById("stand-button").classList.add("disabled");
+      document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("betWindow").disabled = false;
+      //accomodate for half the bet meaning the second bet
+      setMessage(`Bust! -${bet / 2}`);
+      setShow(true);
+      setWinnings(winnings - bet / 2);
+    }
   }, [yourTotal]);
 
   React.useEffect(() => {
@@ -159,6 +183,10 @@ export default function Play({
     let hand2 = yourHand[1];
     setYourHand([hand1]);
     setYourSecondHand([hand2]);
+    //temporary, I will be creating a second bet window later
+    let currentBet = document.getElementById("betWindow");
+    currentBet.value = bet * 2;
+    setBet(currentBet.value);
   };
 
   React.useEffect(() => {
