@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import ReactDOM from "react-dom";
 import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
@@ -11,7 +12,9 @@ export default function Play({
 }) {
   const [deckId, setDeckId] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
+  const [secondHand, setYourSecondHand] = React.useState([]);
   const [yourTotal, setYourTotal] = React.useState(0);
+  const [secondTotal, setSecondTotal] = React.useState(0);
   const [dealerHand, setDealerHand] = React.useState([]);
   const [dealerTotal, setDealerTotal] = React.useState(0);
   const [show, setShow] = React.useState(false);
@@ -66,6 +69,7 @@ export default function Play({
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
+    document.getElementById("split-button").classList.remove("disabled");
     document.getElementById("betWindow").disabled = true;
   };
 
@@ -96,9 +100,23 @@ export default function Play({
     setYourHand(newHand);
   };
 
+  const drawOneSecondHand = async () => {
+    const response = await axios
+      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .catch((error) => console.log(error));
+
+    let newHand = [...secondHand, ...response.data.cards];
+    setYourSecondHand(newHand);
+  };
+
   const hitMe = async () => {
     document.getElementById("betWindow").disabled = true;
-    drawOne();
+    if (setYourSecondHand.length > 0) {
+      drawOne();
+      drawOneSecondHand();
+    } else {
+      drawOne();
+    }
   };
 
   const doubleBet = async () => {
@@ -129,26 +147,20 @@ export default function Play({
   React.useEffect(() => {
     //Check if the start of the game
     if (yourHand.length === 2) {
+      //Are the card values the same
       if (yourHand[0].value === yourHand[1].value) {
         document.getElementById("split-button").classList.remove("disabled");
       }
     }
   }, [yourHand]);
 
-  const splitBet = async () => {
-    let duplicates = [];
-    let handValues = [];
-    yourHand.forEach((card) => {
-      handValues.push(card.value);
-    });
-    //sort the yourhand values
-    const tempArray = [...handValues].sort();
-
-    for (let i = 0; i < tempArray.length; i++) {
-      if (tempArray[i + 1] === tempArray[i]) {
-        duplicates.push(tempArray[i]);
-      }
-    }
+  const splitHand = async () => {
+    /*let hand1 = yourHand[0];
+    let hand2 = yourHand[1];
+    setYourHand(hand1);
+    setYourSecondHand(hand2);
+    drawOne();
+    drawOneSecondHand();*/
   };
 
   React.useEffect(() => {
@@ -201,8 +213,15 @@ export default function Play({
             setTotal={setDealerTotal}
           />
         </Container>
-        <Container className="d-flex justify-content-center">
+        <Container className="d-flex justify-content-center" id="player-hand">
           <Hand hand={yourHand} total={yourTotal} setTotal={setYourTotal} />
+          {secondHand.length > 0 && (
+            <Hand
+              hand={secondHand}
+              total={secondTotal}
+              setTotal={setSecondTotal}
+            />
+          )}
         </Container>
       </Container>
       <div
@@ -242,7 +261,7 @@ export default function Play({
           <Button id="double-button" className="disabled" onClick={doubleBet}>
             Double
           </Button>
-          <Button id="split-button" className="disabled">
+          <Button id="split-button" className="disabled" onClick={splitHand}>
             Split
           </Button>
         </ButtonGroup>
