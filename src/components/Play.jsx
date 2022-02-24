@@ -111,7 +111,7 @@ export default function Play({
 
   const hitMe = async () => {
     document.getElementById("betWindow").disabled = true;
-    if (setYourSecondHand.length > 0) {
+    if (!setYourSecondHand.length) {
       drawOne();
       drawOneSecondHand();
     } else {
