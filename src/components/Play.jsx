@@ -111,7 +111,7 @@ export default function Play({
 
   const hitMe = async () => {
     document.getElementById("betWindow").disabled = true;
-    if (!setYourSecondHand.length) {
+    if (secondHand.length > 0) {
       drawOne();
       drawOneSecondHand();
     } else {
@@ -155,12 +155,10 @@ export default function Play({
   }, [yourHand]);
 
   const splitHand = async () => {
-    /*let hand1 = yourHand[0];
+    let hand1 = yourHand[0];
     let hand2 = yourHand[1];
-    setYourHand(hand1);
-    setYourSecondHand(hand2);
-    drawOne();
-    drawOneSecondHand();*/
+    setYourHand([hand1]);
+    setYourSecondHand([hand2]);
   };
 
   React.useEffect(() => {
