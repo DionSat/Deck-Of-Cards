@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import ReactDOM from "react-dom";
 import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
@@ -19,11 +18,14 @@ export default function Play({
   const [dealerTotal, setDealerTotal] = React.useState(0);
   const [show, setShow] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const [secondShow, setSecondShow] = React.useState(false);
+  const [secondMessage, setSecondMessage] = React.useState("");
   const [payout, setPayout] = React.useState(defaultPayout || 1.5);
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
   const [bet, setBet] = React.useState(defaultMinimum || 5);
   const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
+  const [secondHandBust, didSecondhandBust] = React.useState(false);
 
   React.useEffect(() => {
     const getDeckId = async () => {
@@ -160,10 +162,11 @@ export default function Play({
 
   React.useEffect(() => {
     if (secondTotal > 21) {
-      setMessage(`Second Hand Bust! -${bet / 2}`);
-      setShow(true);
+      setSecondMessage(`Right Hand Bust! -${bet / 2}` + `\n left hand turn`);
+      setSecondShow(true);
       setWinnings(winnings - bet / 2);
       setSecondHandTurn(false);
+      didSecondhandBust(true);
     }
   }, [secondTotal]);
 
@@ -195,6 +198,68 @@ export default function Play({
     if (dealerHand.length <= 1) return;
     else if (dealerTotal < 17) {
       setTimeout(() => dealerDraw(), 1000);
+    } else if (dealerTotal > 21) {
+      setMessage(`You win! +${Math.floor(payout * bet)}`);
+      setShow(true);
+      setWinnings(Math.floor(payout * bet) + winnings);
+    }
+    //Check if there is a second hand and if it did not bust then carry out these checks
+    else if (!secondHandBust && secondHand.length > 0) {
+      if (dealerTotal > yourTotal && dealerTotal < secondTotal) {
+        setMessage(`Right Hand Wins! +${Math.floor(payout * (bet / 2))}`);
+        setSecondMessage(`You lose! -${bet / 2}`);
+        setShow(true);
+        setSecondShow(true);
+        setWinnings(
+          Math.floor(payout * (bet / 2) + winnings) - (winnings - bet / 2)
+        );
+      } else if (dealerTotal > yourTotal && dealerTotal === secondTotal) {
+        setMessage("Right Hand Push! +/-0");
+        setSecondMessage(`Left Hand Lose! -${bet / 2}`);
+        setShow(true);
+        setSecondShow(true);
+        setWinnings(winnings - bet / 2);
+      } else if (dealerTotal > yourTotal && dealerTotal > secondTotal) {
+        setMessage(`Both Hands Lose! -${bet}`);
+        setShow(true);
+        setWinnings(winnings - bet);
+      }
+      //
+      else if (dealerTotal < yourTotal && dealerTotal < secondTotal) {
+        setMessage(`Both Hand Wins! +${Math.floor(payout * bet)}`);
+        setShow(true);
+        setWinnings(Math.floor(payout * bet + winnings));
+      } else if (dealerTotal < yourTotal && dealerTotal === secondTotal) {
+        setMessage("Right Hand Push! +/-0");
+        setSecondMessage(`Left Hand Wins! +${Math.floor(payout * (bet / 2))}`);
+        setShow(true);
+        setSecondShow(true);
+        setWinnings(Math.floor(payout * (bet / 2) + winnings));
+      } else if (dealerTotal < yourTotal && dealerTotal > secondTotal) {
+        setMessage(`Right Hands Lose! -${bet / 2}`);
+        setSecondMessage(`Left Hand Wins! +${Math.floor(payout * (bet / 2))}`);
+        setShow(true);
+        setWinnings(
+          Math.floor(payout * (bet / 2) + winnings) - (winnings - bet / 2)
+        );
+      }
+      //
+      else if (dealerTotal === yourTotal && dealerTotal < secondTotal) {
+        setMessage(`Right Hand Wins! +${Math.floor(payout * (bet / 2))}`);
+        setSecondMessage("Left Hand Push! +/-0");
+        setShow(true);
+        setSecondShow(true);
+        setWinnings(Math.floor(payout * (bet / 2) + winnings));
+      } else if (dealerTotal === yourTotal && dealerTotal === secondTotal) {
+        setMessage("Both Hand Push! +/-0");
+        setShow(true);
+      } else if (dealerTotal === yourTotal && dealerTotal > secondTotal) {
+        setMessage(`Right Hands Lose! -${bet / 2}`);
+        setSecondMessage("Left Hand Push! +/-0");
+        setShow(true);
+        setWinnings(Math.floor(winnings - bet / 2));
+      }
+      //
     } else if (dealerTotal > 21 || dealerTotal < yourTotal) {
       setMessage(`You win! +${Math.floor(payout * bet)}`);
       setShow(true);
@@ -222,26 +287,30 @@ export default function Play({
   }, [winnings]);
 
   return (
-    <Container fluid className="bg-dark p-0 h-100">
-      <Button className="position-absolute top-0 left-0 m-3" size="lg">
+    <Container fluid className='bg-dark p-0 h-100'>
+      <Button className='position-absolute top-0 left-0 m-3' size='lg'>
         Back
       </Button>
-      <div className="position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100">
+      <div className='position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100'>
         <Toasts message={message} show={show} setShow={setShow} />
+        <Toasts
+          message={secondMessage}
+          show={secondShow}
+          setShow={setSecondShow}
+        />
       </div>
       <Container
         fluid
-        className="blackjack-table d-flex flex-column justify-content-around"
-        id="blackjack-table"
-      >
-        <Container className="d-flex justify-content-center">
+        className='blackjack-table d-flex flex-column justify-content-around'
+        id='blackjack-table'>
+        <Container className='d-flex justify-content-center'>
           <Hand
             hand={dealerHand}
             total={dealerTotal}
             setTotal={setDealerTotal}
           />
         </Container>
-        <Container className="d-flex justify-content-center" id="player-hand">
+        <Container className='d-flex justify-content-center' id='player-hand'>
           <Hand hand={yourHand} total={yourTotal} setTotal={setYourTotal} />
           {secondHand.length > 0 && (
             <Hand
@@ -253,43 +322,41 @@ export default function Play({
         </Container>
       </Container>
       <div
-        className="d-flex flex-row bg-light position-absolute bottom-0 rounded m-4 p-2"
-        style={{ boxShadow: "5px 5px #b22222" }}
-      >
+        className='d-flex flex-row bg-light position-absolute bottom-0 rounded m-4 p-2'
+        style={{ boxShadow: "5px 5px #b22222" }}>
         <h4 style={{ marginRight: "20px" }}>Bet</h4>
         <Form>
           <input
             onChange={adjustBet}
-            className="text-center blackjack-bet"
+            className='text-center blackjack-bet'
             value={bet}
-            type="number"
-            min="1"
-            id="betWindow"
+            type='number'
+            min='1'
+            id='betWindow'
           />
         </Form>
       </div>
       <div
-        className="d-flex flex-column bg-light position-absolute top-0 end-0 rounded m-4 py-1 px-4"
-        style={{ boxShadow: "5px 5px #b22222" }}
-      >
+        className='d-flex flex-column bg-light position-absolute top-0 end-0 rounded m-4 py-1 px-4'
+        style={{ boxShadow: "5px 5px #b22222" }}>
         <h4>Winnings</h4>
-        <h4 className="text-center">{winnings}</h4>
+        <h4 className='text-center'>{winnings}</h4>
       </div>
       <Stack>
-        <ButtonGroup className="position-absolute bottom-0 end-0 m-4 w-25">
-          <Button id="deal-button" onClick={newRound} variant="success">
+        <ButtonGroup className='position-absolute bottom-0 end-0 m-4 w-25'>
+          <Button id='deal-button' onClick={newRound} variant='success'>
             Deal
           </Button>
-          <Button id="hit-button" className="disabled" onClick={hitMe}>
+          <Button id='hit-button' className='disabled' onClick={hitMe}>
             Hit
           </Button>
-          <Button id="stand-button" className="disabled" onClick={stand}>
+          <Button id='stand-button' className='disabled' onClick={stand}>
             Stand
           </Button>
-          <Button id="double-button" className="disabled" onClick={doubleBet}>
+          <Button id='double-button' className='disabled' onClick={doubleBet}>
             Double
           </Button>
-          <Button id="split-button" className="disabled" onClick={splitHand}>
+          <Button id='split-button' className='disabled' onClick={splitHand}>
             Split
           </Button>
         </ButtonGroup>
