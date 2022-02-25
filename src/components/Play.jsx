@@ -73,7 +73,6 @@ export default function Play({
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
-    document.getElementById("split-button").classList.remove("disabled");
     document.getElementById("betWindow").disabled = true;
   };
 
