@@ -9,7 +9,7 @@ export default function HowToPlay() {
     >
       <Navbar bg="light" expand={false} fixed="top">
         <Container fluid="lg">
-          <Navbar.Brand>BlackJack - How to play</Navbar.Brand>
+          <Navbar.Brand><h5>BlackJack - How to Play</h5></Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
