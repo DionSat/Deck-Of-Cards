@@ -50,6 +50,14 @@ export default function Play({
     }
   };
 
+  const adjustSecondBet = (e) => {
+    if (e.target.value <= 1000 && e.target.value >= 1) {
+      if (e.target.value >= winnings) setSecondBet(winnings);
+      else if (e.target.value < minimum) setSecondBet(minimum);
+      else setSecondBet(e.target.value);
+    }
+  };
+
   const newRound = (e) => {
     const dealYourOpeningHand = async () => {
       const response = await axios
@@ -139,14 +147,10 @@ export default function Play({
   const doubleBet = async () => {
     if (secondHandTurn) {
       let currentBet = document.getElementById("secondBetWindow");
-      currentBet.value = bet * 2;
+      currentBet.value = secondBet * 2;
       setSecondBet(currentBet.value);
-      drawOne();
-      document.getElementById("deal-button").classList.remove("disabled");
-      document.getElementById("hit-button").classList.add("disabled");
-      document.getElementById("stand-button").classList.add("disabled");
-      document.getElementById("double-button").classList.add("disabled");
-      setTimeout(() => dealerDraw(), 1000);
+      drawOneSecondHand();
+      setSecondHandTurn(false);
     } else {
       let currentBet = document.getElementById("betWindow");
       currentBet.value = bet * 2;
@@ -198,10 +202,6 @@ export default function Play({
     let hand2 = yourHand[1];
     setYourHand([hand1]);
     setYourSecondHand([hand2]);
-    /*let currentBet = document.getElementById("secondBetWindow");
-    document.getElementById("split-button").classList.add("disabled");
-    currentBet.value = bet;
-    setSecondBet(currentBet.value);*/
     //Set the second turn flag
     setSecondHandTurn(true);
   };
@@ -211,7 +211,7 @@ export default function Play({
     if (secondHandTurn) {
       let currentBet = document.getElementById("secondBetWindow");
       document.getElementById("split-button").classList.add("disabled");
-      currentBet.value = bet;
+      currentBet.value = parseInt(bet);
       setSecondBet(currentBet.value);
     }
   }, [secondHandTurn]);
@@ -392,9 +392,9 @@ export default function Play({
               <h4 style={{ marginRight: "20px" }}>Bet</h4>
               <Form>
                 <input
-                  onChange={adjustBet}
+                  onChange={adjustSecondBet}
                   className='text-center bet-input mx-2'
-                  value={bet}
+                  value={secondBet}
                   type='number'
                   min='1'
                   id='secondBetWindow'
