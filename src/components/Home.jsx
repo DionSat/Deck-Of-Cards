@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
   Button,
   ButtonGroup,
@@ -9,15 +10,27 @@ import {
   Col,
   Navbar,
   Nav,
-  Offcanvas
+  Offcanvas,
 } from "react-bootstrap";
 
 export default function Home() {
+  const [startingChips, setStartingChips] = useState();
+  const [minBet, setMinBet] = useState();
+  const [maxBet, setMaxBet] = useState();
+  const [playout, setPlayout] = useState();
+
+  const handleSubmit = () => {
+    //let button = ReactDOM.
+    window.location.href = "/how-to-play";
+  }
+
   return (
     <>
       <Navbar bg="light" expand={false} fixed="top">
         <Container fluid="lg">
-          <Navbar.Brand><h5>BlackJack</h5></Navbar.Brand>
+          <Navbar.Brand>
+            <h5>BlackJack</h5>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -45,49 +58,70 @@ export default function Home() {
       >
         <br />
         <Carousel variant="light">
-          <Carousel.Item className="d-flex">
+          <Carousel.Item className="d-block">
             <img
               className="d-flex home_image"
               src="https://images.unsplash.com/photo-1541278107931-e006523892df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"
               alt="the image of cards"
             />
             <Carousel.Caption>
-              <h1 id="carousel_caption">BlackJack</h1>
+              <h1 id="carousel-caption">BlackJack</h1>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
         <br />
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label className="text-light">Starting Chips</Form.Label>
-              <Form.Control type="number" placeholder="stating chips" />
+              <Form.Control
+                type="number"
+                placeholder="stating chips"
+                value={startingChips}
+                onChange={(e) => setStartingChips(e.target.value)}
+              />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label className="text-light">Minimum Bet</Form.Label>
-              <Form.Control type="number" placeholder="minimum bet" />
+              <Form.Control
+                type="number"
+                placeholder="minimum bet"
+                value={minBet}
+                onChange={(e) => setMinBet(e.target.value)}
+              />
             </Form.Group>
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label className="text-light">Play Out</Form.Label>
-              <Form.Control type="number" placeholder="play out" />
+              <Form.Control
+                type="number"
+                placeholder="play out"
+                value={playout}
+                onChange={(e) => setPlayout(e.target.value)}
+              />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label className="text-light">Maximum Bet</Form.Label>
-              <Form.Control type="number" placeholder="maximum bet" />
+              <Form.Control
+                type="number"
+                placeholder="maximum bet"
+                value={maxBet}
+                onChange={(e) => setMaxBet(e.target.value)}
+              />
             </Form.Group>
           </Row>
-        </Form>
-        <br />
+          <br />
         <ButtonGroup size="lg">
-          <Button href="/play" variant="light">
+          <Button variant="light" type="submit" id="submit_button">
             Play
           </Button>
           <Button href="/how-to-play" variant="outline-light">
             Rules
           </Button>
         </ButtonGroup>
+        </Form>
+        
         <br />
       </Container>
     </>
