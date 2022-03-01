@@ -22,17 +22,16 @@ export default function Hand({ hand, total, setTotal }) {
 
   return (
     <div className="d-flex flex-row align-items-center">
-      <div className="p-4 bg-white border border-dark rounded-circle">
+      <div className="hand-total bg-white border border-dark rounded-circle">
         {total}
       </div>
-      <div className="m-5">
+      <div className="m-3">
         {hand ? (
           hand.map((card, index) => {
             return (
               <img
+                className="card-image"
                 src={card.images.png}
-                height="150px"
-                width="100px"
                 key={index}
               />
             );

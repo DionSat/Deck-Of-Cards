@@ -329,10 +329,9 @@ export default function Play({
   }, [winnings]);
 
   return (
-    <Container fluid className='bg-dark p-0 h-100'>
-      <Button className='position-absolute top-0 left-0 m-3' size='lg'>
-        Back
-      </Button>
+    <Container
+      fluid
+      className='main-container d-flex flex-column bg-dark p-0 h-100'>
       <div className='position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100'>
         <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
@@ -363,64 +362,68 @@ export default function Play({
           )}
         </Container>
       </Container>
-      <div
-        className='d-flex flex-row bg-light position-absolute bottom-50 rounded m-4 p-2'
-        style={{ boxShadow: "5px 5px #b22222" }}>
-        <h4 style={{ marginRight: "20px" }}>Bet</h4>
-        <Form>
-          <input
-            onChange={adjustBet}
-            className='text-center blackjack-bet'
-            value={bet}
-            type='number'
-            min='1'
-            id='betWindow'
-          />
-        </Form>
-      </div>
-      {secondHand.length > 0 && (
-        <div
-          className='d-flex flex-row bg-light position-absolute end-0 bottom-50 rounded m-4 p-2'
-          style={{ boxShadow: "5px 5px #b22222" }}>
-          <h4 style={{ marginRight: "20px" }}>Bet</h4>
-          <Form>
-            <input
-              onChange={adjustBet}
-              className='text-center blackjack-bet'
-              value={bet}
-              type='number'
-              min='1'
-              id='secondBetWindow'
-              disabled
-            />
-          </Form>
+      <div className='info-container'>
+        <div className='chips-container'>
+          <div
+            className='winnings-window d-flex flex-column bg-light rounded'
+            style={{ boxShadow: "5px 5px #b22222" }}>
+            <h4>Winnings</h4>
+            <h4 className='text-center'>{winnings}</h4>
+          </div>
+          <div
+            className='bet-window d-flex bg-light rounded p-2 position-absolute bottom-50'
+            style={{ boxShadow: "5px 5px #b22222" }}>
+            <h4>Bet</h4>
+            <Form>
+              <input
+                onChange={adjustBet}
+                className='text-center bet-input mx-2'
+                value={bet}
+                type='number'
+                min='1'
+                id='betWindow'
+              />
+            </Form>
+          </div>
+          {secondHand.length > 0 && (
+            <div
+              className='bet-window d-flex bg-light rounded p-2 position-absolute end-0 bottom-50'
+              style={{ boxShadow: "5px 5px #b22222" }}>
+              <h4 style={{ marginRight: "20px" }}>Bet</h4>
+              <Form>
+                <input
+                  onChange={adjustBet}
+                  className='text-center bet-input mx-2'
+                  value={bet}
+                  type='number'
+                  min='1'
+                  id='secondBetWindow'
+                  disabled
+                />
+              </Form>
+            </div>
+          )}
         </div>
-      )}
-      <div
-        className='d-flex flex-column bg-light position-absolute top-0 end-0 rounded m-4 py-1 px-4'
-        style={{ boxShadow: "5px 5px #b22222" }}>
-        <h4>Winnings</h4>
-        <h4 className='text-center'>{winnings}</h4>
+        <div className='d-flex align-items-center justify-content-center'>
+          <ButtonGroup className='button-container'>
+            <Button id='deal-button' onClick={newRound} variant='success'>
+              Deal
+            </Button>
+            <Button id='hit-button' className='disabled' onClick={hitMe}>
+              Hit
+            </Button>
+            <Button id='stand-button' className='disabled' onClick={stand}>
+              Stand
+            </Button>
+            <Button id='double-button' className='disabled' onClick={doubleBet}>
+              Double
+            </Button>
+            <Button id='split-button' className='disabled' onClick={splitHand}>
+              Split
+            </Button>
+          </ButtonGroup>
+        </div>
       </div>
-      <Stack>
-        <ButtonGroup className='position-absolute bottom-0 end-0 m-4 w-25'>
-          <Button id='deal-button' onClick={newRound} variant='success'>
-            Deal
-          </Button>
-          <Button id='hit-button' className='disabled' onClick={hitMe}>
-            Hit
-          </Button>
-          <Button id='stand-button' className='disabled' onClick={stand}>
-            Stand
-          </Button>
-          <Button id='double-button' className='disabled' onClick={doubleBet}>
-            Double
-          </Button>
-          <Button id='split-button' className='disabled' onClick={splitHand}>
-            Split
-          </Button>
-        </ButtonGroup>
-      </Stack>
     </Container>
   );
 }

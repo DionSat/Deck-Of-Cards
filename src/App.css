@@ -2,10 +2,26 @@
   color: #a020f0;
 }
 
+#carousel_caption {
+  text-shadow: 3px 3px 1px black;
+}
+
 #root,
 #root > div {
   height: 100vh;
   width: 100vw;
+}
+
+.bet-input {
+  max-width: 100px;
+}
+
+.bet-window {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 175px;
 }
 
 .blackjack-table {
@@ -20,13 +36,89 @@
   border-bottom: 40px solid #2f1000;
   border-bottom-left-radius: 90%;
   border-bottom-right-radius: 90%;
-  height: 95%;
+  flex-grow: 1;
 }
 
-.blackjack-bet {
-  max-width: 100px;
+.info-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-#carousel_caption {
-  text-shadow: 3px 3px 1px black;
+.winnings-window {
+  text-align: center;
+  width: 175px;
+}
+
+@media screen and (min-width: 768px) {
+  .bet-window {
+    margin: 1.5rem;
+  }
+
+  .button-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1.5rem;
+  }
+
+  .card-image {
+    height: 140px;
+    width: 100px;
+  }
+
+  .hand-total {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+
+  .winnings-window {
+    margin: 1.5rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-image {
+    height: 105px;
+    width: 75px;
+  }
+
+  .chips-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .hand-total {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .card-image {
+    height: 70px;
+    width: 50px;
+  }
+
+  .hand-total {
+    font-size: 0.6rem;
+    padding: 5px;
+  }
 }
