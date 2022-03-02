@@ -37,6 +37,7 @@
   border-bottom-left-radius: 90%;
   border-bottom-right-radius: 90%;
   flex-grow: 1;
+  overflow: hidden;
 }
 
 .card-image {
