@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Hand({ hand, total, setTotal }) {
+export default function Hand({ hand, total, setTotal, turn }) {
   React.useEffect(() => {
     let newTotal = 0;
     let currentAces = [];
@@ -21,25 +21,40 @@ export default function Hand({ hand, total, setTotal }) {
   }, [hand]);
 
   return (
-    <div className="d-flex flex-row align-items-center">
-      <div className="hand-total bg-white border border-dark rounded-circle">
+    <div className='d-flex flex-row align-items-center'>
+      <div className='hand-total bg-white border border-dark rounded-circle'>
         {total}
       </div>
-      <div className="m-3">
-        {hand ? (
-          hand.map((card, index) => {
-            return (
-              <img
-                className="card-image"
-                src={card.images.png}
-                key={index}
-              />
-            );
-          })
-        ) : (
-          <div></div>
-        )}
-      </div>
+      {turn ? (
+        <div className='m-3'>
+          {hand ? (
+            hand.map((card, index) => {
+              return (
+                <img
+                  className='card-image'
+                  src={card.images.png}
+                  key={index}
+                  id='card-image-glow'
+                />
+              );
+            })
+          ) : (
+            <div></div>
+          )}
+        </div>
+      ) : (
+        <div className='m-3'>
+          {hand ? (
+            hand.map((card, index) => {
+              return (
+                <img className='card-image' src={card.images.png} key={index} />
+              );
+            })
+          ) : (
+            <div></div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

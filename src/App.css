@@ -44,6 +44,10 @@
   animation: bounce-in-right 2s ease 1;
 }
 
+#card-image-glow {
+  box-shadow: 0 0 5px 5px gold;
+}
+
 @keyframes bounce-in-right {
   0% {
     opacity: 0;
