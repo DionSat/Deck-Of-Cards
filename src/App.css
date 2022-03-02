@@ -46,6 +46,7 @@
 
 #card-image-glow {
   box-shadow: 0 0 5px 5px gold;
+  border-radius: 5%;
 }
 
 @keyframes bounce-in-right {
