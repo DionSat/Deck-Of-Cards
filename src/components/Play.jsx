@@ -50,6 +50,14 @@ export default function Play({
     }
   };
 
+  const adjustSecondBet = (e) => {
+    if (e.target.value <= 1000 && e.target.value >= 1) {
+      if (e.target.value >= winnings) setSecondBet(winnings);
+      else if (e.target.value < minimum) setSecondBet(minimum);
+      else setSecondBet(e.target.value);
+    }
+  };
+
   const newRound = (e) => {
     const dealYourOpeningHand = async () => {
       const response = await axios
@@ -139,14 +147,10 @@ export default function Play({
   const doubleBet = async () => {
     if (secondHandTurn) {
       let currentBet = document.getElementById("secondBetWindow");
-      currentBet.value = bet * 2;
+      currentBet.value = secondBet * 2;
       setSecondBet(currentBet.value);
-      drawOne();
-      document.getElementById("deal-button").classList.remove("disabled");
-      document.getElementById("hit-button").classList.add("disabled");
-      document.getElementById("stand-button").classList.add("disabled");
-      document.getElementById("double-button").classList.add("disabled");
-      setTimeout(() => dealerDraw(), 1000);
+      drawOneSecondHand();
+      setSecondHandTurn(false);
     } else {
       let currentBet = document.getElementById("betWindow");
       currentBet.value = bet * 2;
@@ -198,10 +202,6 @@ export default function Play({
     let hand2 = yourHand[1];
     setYourHand([hand1]);
     setYourSecondHand([hand2]);
-    /*let currentBet = document.getElementById("secondBetWindow");
-    document.getElementById("split-button").classList.add("disabled");
-    currentBet.value = bet;
-    setSecondBet(currentBet.value);*/
     //Set the second turn flag
     setSecondHandTurn(true);
   };
@@ -211,7 +211,7 @@ export default function Play({
     if (secondHandTurn) {
       let currentBet = document.getElementById("secondBetWindow");
       document.getElementById("split-button").classList.add("disabled");
-      currentBet.value = bet;
+      currentBet.value = parseInt(bet);
       setSecondBet(currentBet.value);
     }
   }, [secondHandTurn]);
@@ -331,9 +331,8 @@ export default function Play({
   return (
     <Container
       fluid
-      className="main-container d-flex flex-column bg-dark p-0 h-100"
-    >
-      <div className="position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100">
+      className='main-container d-flex flex-column bg-dark p-0 h-100'>
+      <div className='position-absolute d-flex flex-row justify-content-center align-items-center h-100 w-100'>
         <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
           message={secondMessage}
@@ -343,17 +342,16 @@ export default function Play({
       </div>
       <Container
         fluid
-        className="blackjack-table d-flex flex-column justify-content-around"
-        id="blackjack-table"
-      >
-        <Container className="d-flex justify-content-center">
+        className='blackjack-table d-flex flex-column justify-content-around'
+        id='blackjack-table'>
+        <Container className='d-flex justify-content-center'>
           <Hand
             hand={dealerHand}
             total={dealerTotal}
             setTotal={setDealerTotal}
           />
         </Container>
-        <Container className="d-flex justify-content-center" id="player-hand">
+        <Container className='d-flex justify-content-center' id='player-hand'>
           <Hand hand={yourHand} total={yourTotal} setTotal={setYourTotal} />
           {secondHand.length > 0 && (
             <Hand
@@ -364,44 +362,67 @@ export default function Play({
           )}
         </Container>
       </Container>
-      <div
-        className='d-flex flex-row bg-light position-absolute bottom-50 rounded m-4 p-2'
-        style={{ boxShadow: "5px 5px #b22222" }}>
-        <h4 style={{ marginRight: "20px" }}>Bet</h4>
-        <Form>
-          <input
-            onChange={adjustBet}
-            className='text-center blackjack-bet'
-            value={bet}
-            type='number'
-            min='1'
-            id='betWindow'
-          />
-        </Form>
-      </div>
-      {secondHand.length > 0 && (
-        <div
-          className='d-flex flex-row bg-light position-absolute end-0 bottom-50 rounded m-4 p-2'
-          style={{ boxShadow: "5px 5px #b22222" }}>
-          <h4 style={{ marginRight: "20px" }}>Bet</h4>
-          <Form>
-            <input
-              onChange={adjustBet}
-              className='text-center blackjack-bet'
-              value={bet}
-              type='number'
-              min='1'
-              id='secondBetWindow'
-              disabled
-            />
-          </Form>
+      <div className='info-container'>
+        <div className='chips-container'>
+          <div
+            className='winnings-window d-flex flex-column bg-light rounded'
+            style={{ boxShadow: "5px 5px #b22222" }}>
+            <h4>Winnings</h4>
+            <h4 className='text-center'>{winnings}</h4>
+          </div>
+          <div
+            className='bet-window d-flex bg-light rounded p-2 position-absolute bottom-50'
+            style={{ boxShadow: "5px 5px #b22222" }}>
+            <h4>Bet</h4>
+            <Form>
+              <input
+                onChange={adjustBet}
+                className='text-center bet-input mx-2'
+                value={bet}
+                type='number'
+                min='1'
+                id='betWindow'
+              />
+            </Form>
+          </div>
+          {secondHand.length > 0 && (
+            <div
+              className='bet-window d-flex bg-light rounded p-2 position-absolute end-0 bottom-50'
+              style={{ boxShadow: "5px 5px #b22222" }}>
+              <h4 style={{ marginRight: "20px" }}>Bet</h4>
+              <Form>
+                <input
+                  onChange={adjustSecondBet}
+                  className='text-center bet-input mx-2'
+                  value={secondBet}
+                  type='number'
+                  min='1'
+                  id='secondBetWindow'
+                  disabled
+                />
+              </Form>
+            </div>
+          )}
         </div>
-      )}
-      <div
-        className='d-flex flex-column bg-light position-absolute top-0 end-0 rounded m-4 py-1 px-4'
-        style={{ boxShadow: "5px 5px #b22222" }}>
-        <h4>Winnings</h4>
-        <h4 className='text-center'>{winnings}</h4>
+        <div className='d-flex align-items-center justify-content-center'>
+          <ButtonGroup className='button-container'>
+            <Button id='deal-button' onClick={newRound} variant='success'>
+              Deal
+            </Button>
+            <Button id='hit-button' className='disabled' onClick={hitMe}>
+              Hit
+            </Button>
+            <Button id='stand-button' className='disabled' onClick={stand}>
+              Stand
+            </Button>
+            <Button id='double-button' className='disabled' onClick={doubleBet}>
+              Double
+            </Button>
+            <Button id='split-button' className='disabled' onClick={splitHand}>
+              Split
+            </Button>
+          </ButtonGroup>
+        </div>
       </div>
     </Container>
   );
