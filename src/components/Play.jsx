@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
 
-export default function Play({
+export default function Play(props, {
   defaultPayout,
   defaultWinnings,
   defaultMinimum,
@@ -27,6 +27,8 @@ export default function Play({
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
   const [secondHandBust, didSecondhandBust] = React.useState(false);
 
+  console.log("checking props\n" + "starting: " + props?.state?.startingChips);
+  
   React.useEffect(() => {
     const getDeckId = async () => {
       const response = await axios

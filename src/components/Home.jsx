@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Button,
   ButtonGroup,
@@ -12,17 +11,16 @@ import {
   Nav,
   Offcanvas,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const [startingChips, setStartingChips] = useState();
-  const [minBet, setMinBet] = useState();
-  const [maxBet, setMaxBet] = useState();
-  const [playout, setPlayout] = useState();
+  const [startingChips, setStartingChips] = useState(0);
+  const [minBet, setMinBet] = useState(5);
+  const [maxBet, setMaxBet] = useState(0);
+  const [payout, setPayout] = useState(1.5);
+  let navigate = useNavigate();
 
-  const handleSubmit = () => {
-    //let button = ReactDOM.
-    window.location.href = "/how-to-play";
-  }
+  
 
   return (
     <>
@@ -70,7 +68,16 @@ export default function Home() {
           </Carousel.Item>
         </Carousel>
         <br />
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={async() =>{
+                navigate("/play", {
+                  state: {
+                    startingChips: startingChips,
+                    minBet: minBet,
+                    maxBet: maxBet,
+                    payout: payout,
+                  },
+                })
+              }}>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label className="text-light">Starting Chips</Form.Label>
@@ -93,12 +100,12 @@ export default function Home() {
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label className="text-light">Play Out</Form.Label>
+              <Form.Label className="text-light">Pay Out</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="play out"
-                value={playout}
-                onChange={(e) => setPlayout(e.target.value)}
+                value={payout}
+                onChange={(e) => setPayout(e.target.value)}
               />
             </Form.Group>
             <Form.Group as={Col}>
@@ -112,16 +119,20 @@ export default function Home() {
             </Form.Group>
           </Row>
           <br />
-        <ButtonGroup size="lg">
-          <Button variant="light" type="submit" id="submit_button">
-            Play
-          </Button>
-          <Button href="/how-to-play" variant="outline-light">
-            Rules
-          </Button>
-        </ButtonGroup>
+          <ButtonGroup size="lg">
+            <Button
+              variant="light"
+              type="submit"
+
+            >
+              Play
+            </Button>
+            <Button href="/how-to-play" variant="outline-light" type="button">
+              Rules
+            </Button>
+          </ButtonGroup>
         </Form>
-        
+
         <br />
       </Container>
     </>
