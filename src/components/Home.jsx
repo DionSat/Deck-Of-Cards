@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const [startingChips, setStartingChips] = useState(5);
   const [minBet, setMinBet] = useState(5);
-  const [maxBet, setMaxBet] = useState(0);
+  const [maxBet, setMaxBet] = useState(1000);
   const [payout, setPayout] = useState(1.5);
   let navigate = useNavigate();
 

@@ -3,12 +3,14 @@ import axios from "axios";
 import { Button, ButtonGroup, Container, Form, Stack } from "react-bootstrap";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
+import { useLocation } from "react-router-dom";
 
-export default function Play({props,
+export default function Play({
   defaultPayout,
   defaultWinnings,
   defaultMinimum,
 }) {
+  const { state } = useLocation();
   const [deckId, setDeckId] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [secondHand, setYourSecondHand] = React.useState([]);
@@ -20,15 +22,14 @@ export default function Play({props,
   const [message, setMessage] = React.useState("");
   const [secondShow, setSecondShow] = React.useState(false);
   const [secondMessage, setSecondMessage] = React.useState("");
-  const [payout, setPayout] = React.useState(defaultPayout || 1.5);
+  const [payout, setPayout] = React.useState(state?.payout || defaultPayout || 1.5);
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
-  const [bet, setBet] = React.useState(defaultMinimum || 5);
-  const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
+  const [bet, setBet] = React.useState(state?.startingChips || defaultMinimum || 5);
+  const [minimum, setMinimum] = React.useState(state?.minBet ||defaultMinimum || 5);
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
   const [secondHandBust, didSecondhandBust] = React.useState(false);
+  const [maximum, setMaximum] = React.useState(state?.maxBet || 1000);
 
-  console.log("checking props\n" + props?.state?.startingChips);
-  
   React.useEffect(() => {
     const getDeckId = async () => {
       const response = await axios
@@ -44,7 +45,7 @@ export default function Play({props,
   }, []);
 
   const adjustBet = (e) => {
-    if (e.target.value <= 1000 && e.target.value >= 1) {
+    if (e.target.value <= maximum && e.target.value >= 1) {
       if (e.target.value >= winnings) setBet(winnings);
       else if (e.target.value < minimum) setBet(minimum);
       else setBet(e.target.value);
