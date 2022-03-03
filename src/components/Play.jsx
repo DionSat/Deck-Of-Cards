@@ -103,6 +103,7 @@ export default function Play({
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
+    document.getElementById("split-button").classList.remove("disabled");
     document.getElementById("betWindow").disabled = true;
   };
 
@@ -195,6 +196,12 @@ export default function Play({
 
   React.useEffect(() => {
     if (yourTotal === 21) {
+      stand();
+    } else if (yourTotal > 21 && secondHand.length > 0 && !secondHandBust) {
+      setMessage(`Bust! -${bet}`);
+      setShow(true);
+      setWinnings(winnings - bet);
+      loseSfx();
       stand();
     } else if (yourTotal > 21) {
       document.getElementById("deal-button").classList.remove("disabled");
@@ -374,8 +381,8 @@ export default function Play({
   }, [winnings]);
 
   return (
-    <Container fluid className="main-container bg-dark p-0 h-100">
-      <ToastContainer className="position-absolute p-4" position="top-end">
+    <Container fluid className='main-container bg-dark p-0 h-100'>
+      <ToastContainer className='position-absolute p-4' position='top-end'>
         <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
           message={secondMessage}
@@ -383,8 +390,8 @@ export default function Play({
           setShow={setSecondShow}
         />
       </ToastContainer>
-      <Container fluid className="blackjack-table" id="blackjack-table">
-        <Container className="d-flex justify-content-center">
+      <Container fluid className='blackjack-table' id='blackjack-table'>
+        <Container className='d-flex justify-content-center'>
           <Hand
             hand={dealerHand}
             total={dealerTotal}
@@ -392,7 +399,7 @@ export default function Play({
           />
         </Container>
         {secondHandTurn ? (
-          <Container className="d-flex justify-content-center" id="player-hand">
+          <Container className='d-flex justify-content-center' id='player-hand'>
             <Hand
               hand={yourHand}
               total={yourTotal}
@@ -409,7 +416,7 @@ export default function Play({
             )}
           </Container>
         ) : (
-          <Container className="d-flex justify-content-center" id="player-hand">
+          <Container className='d-flex justify-content-center' id='player-hand'>
             <Hand
               hand={yourHand}
               total={yourTotal}
@@ -427,57 +434,57 @@ export default function Play({
           </Container>
         )}
       </Container>
-      <div className="info-container">
-        <div className="winnings-window">
+      <div className='info-container'>
+        <div className='winnings-window'>
           <h4>Winnings</h4>
           {winnings}
         </div>
-        <div className="bet-container">
-          <div className="bet-window">
+        <div className='bet-container'>
+          <div className='bet-window'>
             <h5>Bet</h5>
             <Form>
               <input
-                className="bet-input"
+                className='bet-input'
                 onChange={adjustBet}
                 value={bet}
-                type="number"
-                min="1"
-                id="betWindow"
+                type='number'
+                min='1'
+                id='betWindow'
               />
             </Form>
           </div>
           {secondHand.length > 0 && (
-            <div className="bet-window">
+            <div className='bet-window'>
               <h5>Bet</h5>
               <Form>
                 <input
-                  className="bet-input"
+                  className='bet-input'
                   onChange={adjustSecondBet}
                   value={secondBet}
-                  type="number"
-                  min="1"
-                  id="secondBetWindow"
+                  type='number'
+                  min='1'
+                  id='secondBetWindow'
                   disabled
                 />
               </Form>
             </div>
           )}
         </div>
-        <div className="button-container">
-          <ButtonGroup className="d-flex align-items-center justify-content-center">
-            <Button id="deal-button" onClick={newRound} variant="success">
+        <div className='button-container'>
+          <ButtonGroup className='d-flex align-items-center justify-content-center'>
+            <Button id='deal-button' onClick={newRound} variant='success'>
               Deal
             </Button>
-            <Button id="hit-button" className="disabled" onClick={hitMe}>
+            <Button id='hit-button' className='disabled' onClick={hitMe}>
               Hit
             </Button>
-            <Button id="stand-button" className="disabled" onClick={stand}>
+            <Button id='stand-button' className='disabled' onClick={stand}>
               Stand
             </Button>
-            <Button id="double-button" className="disabled" onClick={doubleBet}>
+            <Button id='double-button' className='disabled' onClick={doubleBet}>
               Double
             </Button>
-            <Button id="split-button" className="disabled" onClick={splitHand}>
+            <Button id='split-button' className='disabled' onClick={splitHand}>
               Split
             </Button>
           </ButtonGroup>
