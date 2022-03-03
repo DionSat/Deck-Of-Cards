@@ -15,7 +15,7 @@ import winSound from "../sfx/win.wav";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
 
-export default function Play(props, {
+export default function Play({props,
   defaultPayout,
   defaultWinnings,
   defaultMinimum,

@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const [startingChips, setStartingChips] = useState(0);
+  const [startingChips, setStartingChips] = useState(5);
   const [minBet, setMinBet] = useState(5);
   const [maxBet, setMaxBet] = useState(0);
   const [payout, setPayout] = useState(1.5);
@@ -45,6 +45,7 @@ export default function Home() {
                 <Nav.Link href="/">BlackJack</Nav.Link>
                 <Nav.Link href="/play">Play</Nav.Link>
                 <Nav.Link href="/how-to-play">How to Play</Nav.Link>
+                <Nav.Link href="/about-us">About Us</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
@@ -68,16 +69,7 @@ export default function Home() {
           </Carousel.Item>
         </Carousel>
         <br />
-        <Form onSubmit={async() =>{
-                navigate("/play", {
-                  state: {
-                    startingChips: startingChips,
-                    minBet: minBet,
-                    maxBet: maxBet,
-                    payout: payout,
-                  },
-                })
-              }}>
+        
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label className="text-light">Starting Chips</Form.Label>
@@ -127,7 +119,16 @@ export default function Home() {
             <Button
               variant="light"
               type="submit"
-
+              onClick={async() =>{
+                navigate("/play", {
+                  state: {
+                    startingChips: startingChips,
+                    minBet: minBet,
+                    maxBet: maxBet,
+                    payout: payout,
+                  },
+                })
+              }}
             >
               Play
             </Button>
@@ -135,7 +136,7 @@ export default function Home() {
               Rules
             </Button>
           </ButtonGroup>
-        </Form>
+        
 
         <br />
       </Container>
