@@ -20,7 +20,7 @@ export default function Play({
   defaultWinnings,
   defaultMinimum,
 }) {
-  const [deckId, setDeckId] = React.useState(null);
+  const [deck, setDeck] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [secondHand, setYourSecondHand] = React.useState([]);
   const [yourTotal, setYourTotal] = React.useState(0);
@@ -43,18 +43,15 @@ export default function Play({
   const [loseSfx] = useSound(loseSound);
   const [winSfx] = useSound(winSound);
 
+  const getNewDeck = async () => {
+    const response = await axios
+      .get(`https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6`)
+      .catch((error) => console.log(error.message));
+    setDeck(response.data);
+  };
+
   React.useEffect(() => {
-    const getDeckId = async () => {
-      const response = await axios
-        .get(
-          `https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`
-        )
-        .catch((error) => console.log(error.message));
-
-      setDeckId(response.data.deck_id);
-    };
-
-    getDeckId();
+    getNewDeck();
   }, []);
 
   const adjustBet = (e) => {
@@ -77,7 +74,9 @@ export default function Play({
     const dealYourOpeningHand = async () => {
       drawSfx();
       const response = await axios
-        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
+        .get(
+          `https://www.deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=2`
+        )
         .catch((error) => console.log(error));
 
       setYourHand(response.data.cards);
@@ -86,21 +85,24 @@ export default function Play({
     const dealDealersOpeningHand = async () => {
       drawSfx();
       const response = await axios
-        .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+        .get(
+          `https://www.deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`
+        )
         .catch((error) => console.log(error));
 
       setDealerHand(response.data.cards);
     };
     //Reset Second Hand if there is one
     setYourSecondHand([]);
+    if (deck.remaining < 52) getNewDeck();
     dealYourOpeningHand();
     setTimeout(() => dealDealersOpeningHand(), 1500);
 
     document.getElementById("deal-button").classList.add("disabled");
+    document.getElementById("split-button").classList.add("disabled");
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
-    document.getElementById("split-button").classList.remove("disabled");
     document.getElementById("betWindow").disabled = true;
   };
 
@@ -127,7 +129,9 @@ export default function Play({
   const dealerDraw = async () => {
     drawSfx();
     const response = await axios
-      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .get(
+        `https://www.deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`
+      )
       .catch((error) => console.log(error));
 
     let newHand = [...dealerHand, ...response.data.cards];
@@ -137,7 +141,9 @@ export default function Play({
   const drawOne = async () => {
     drawSfx();
     const response = await axios
-      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .get(
+        `https://www.deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`
+      )
       .catch((error) => console.log(error));
 
     let newHand = [...yourHand, ...response.data.cards];
@@ -147,7 +153,9 @@ export default function Play({
   const drawOneSecondHand = async () => {
     drawSfx();
     const response = await axios
-      .get(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+      .get(
+        `https://www.deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`
+      )
       .catch((error) => console.log(error));
 
     let newHand = [...secondHand, ...response.data.cards];
@@ -186,7 +194,9 @@ export default function Play({
   };
 
   React.useEffect(() => {
-    if (yourTotal > 21) {
+    if (yourTotal === 21) {
+      stand();
+    } else if (yourTotal > 21) {
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
@@ -201,7 +211,7 @@ export default function Play({
 
   React.useEffect(() => {
     if (secondTotal > 21) {
-      setSecondMessage(`Right Hand Bust! -${secondBet}` + `\n left hand turn`);
+      setSecondMessage(`Right Hand Bust! -${secondBet}`);
       setSecondShow(true);
       setWinnings(winnings - secondBet);
       setSecondHandTurn(false);
@@ -259,7 +269,7 @@ export default function Play({
     else if (!secondHandBust && secondHand.length > 0) {
       if (dealerTotal > yourTotal && dealerTotal < secondTotal) {
         setMessage(
-          `Right Hand Wins! +${Math.floor(payout * parseInt(secondBet))}`
+          `Right hand wins! +${Math.floor(payout * parseInt(secondBet))}`
         );
         setSecondMessage(`You lose! -${parseInt(bet)}`);
         setShow(true);
@@ -270,13 +280,13 @@ export default function Play({
         winSfx();
         setTimeout(() => loseSfx(), 1500);
       } else if (dealerTotal > yourTotal && dealerTotal === secondTotal) {
-        setMessage("Right Hand Pushes! +/-0");
-        setSecondMessage(`Left Hand Loses! -${parseInt(bet)}`);
+        setMessage("Right hand pushes! +/-0");
+        setSecondMessage(`Left hand loses! -${parseInt(bet)}`);
         setShow(true);
         setSecondShow(true);
         setWinnings(winnings - parseInt(bet));
       } else if (dealerTotal > yourTotal && dealerTotal > secondTotal) {
-        setMessage(`Both Hands Lose! -${parseInt(bet) + parseInt(secondBet)}`);
+        setMessage(`Both hands lose! -${parseInt(bet) + parseInt(secondBet)}`);
         setShow(true);
         setWinnings(winnings - (parseInt(bet) + parseInt(secondBet)));
         loseSfx();
@@ -284,7 +294,7 @@ export default function Play({
       //
       else if (dealerTotal < yourTotal && dealerTotal < secondTotal) {
         setMessage(
-          `Both Hands Win! +${Math.floor(
+          `Both hands win! +${Math.floor(
             payout * (parseInt(bet) + parseInt(secondBet))
           )}`
         );
@@ -294,18 +304,18 @@ export default function Play({
         );
         winSfx();
       } else if (dealerTotal < yourTotal && dealerTotal === secondTotal) {
-        setMessage("Right Hand Pushes! +/-0");
+        setMessage("Right hand pushes! +/-0");
         setSecondMessage(
-          `Left Hand Wins! +${Math.floor(payout * parseInt(bet))}`
+          `Left hand wins! +${Math.floor(payout * parseInt(bet))}`
         );
         setShow(true);
         setSecondShow(true);
         setWinnings(Math.floor(payout * (parseInt(bet) + winnings)));
         winSfx();
       } else if (dealerTotal < yourTotal && dealerTotal > secondTotal) {
-        setMessage(`Right Hand Loses! -${parseInt(bet) / 2}`);
+        setMessage(`Right hand loses! -${parseInt(bet) / 2}`);
         setSecondMessage(
-          `Left Hand Wins! +${Math.floor(payout * parseInt(bet))}`
+          `Left hand wins! +${Math.floor(payout * parseInt(bet))}`
         );
         setShow(true);
         setWinnings(
@@ -317,19 +327,19 @@ export default function Play({
       //
       else if (dealerTotal === yourTotal && dealerTotal < secondTotal) {
         setMessage(
-          `Right Hand Wins! +${Math.floor(payout * parseInt(secondBet))}`
+          `Right hand wins! +${Math.floor(payout * parseInt(secondBet))}`
         );
-        setSecondMessage("Left Hands Push! +/-0");
+        setSecondMessage("Left hand pushes! +/-0");
         setShow(true);
         setSecondShow(true);
         setWinnings(Math.floor(payout * (parseInt(secondBet) + winnings)));
         winSfx();
       } else if (dealerTotal === yourTotal && dealerTotal === secondTotal) {
-        setMessage("Both Hands Push! +/-0");
+        setMessage("Both hands push! +/-0");
         setShow(true);
       } else if (dealerTotal === yourTotal && dealerTotal > secondTotal) {
-        setMessage(`Right Hand Lose! -${parseInt(secondBet)}`);
-        setSecondMessage("Left Hand Push! +/-0");
+        setMessage(`Right hand loses! -${parseInt(secondBet)}`);
+        setSecondMessage("Left hand pushes! +/-0");
         setShow(true);
         setWinnings(Math.floor(winnings - parseInt(secondBet)));
         loseSfx();
