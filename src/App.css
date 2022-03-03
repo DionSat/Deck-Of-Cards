@@ -2,7 +2,7 @@
   color: #a020f0;
 }
 
-#carousel_caption {
+#carousel-caption {
   text-shadow: 3px 3px 1px black;
 }
 
@@ -93,7 +93,7 @@
   box-shadow: 5px 5px #b22222;
   display: flex;
   justify-content: center;
-  padding: 0.25rem 1.0rem;
+  padding: 0.25rem 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -173,4 +173,22 @@
   100% {
     transform: translateX(0);
   }
+}
+
+.rules {
+  max-height: 350px;
+}
+
+#jumbo_h1 {
+  width: 30rem;
+}
+
+.scrollbar {
+  overflow-y: scroll;
+}
+
+.home_image {
+  filter: grayscale(30%) blur(1px);
+  max-width: 100%;
+  height: auto;
 }

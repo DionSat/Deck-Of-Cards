@@ -15,7 +15,7 @@ import winSound from "../sfx/win.wav";
 import Hand from "./Hand.jsx";
 import Toasts from "./Toasts.jsx";
 
-export default function Play({
+export default function Play(props, {
   defaultPayout,
   defaultWinnings,
   defaultMinimum,
@@ -374,7 +374,7 @@ export default function Play({
   }, [winnings]);
 
   return (
-    <Container fluid className="main-container bg-dark p-0 h-100">
+    <Container role="main" fluid className="main-container bg-dark p-0 h-100">
       <ToastContainer className="position-absolute p-4" position="top-end">
         <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
@@ -429,14 +429,15 @@ export default function Play({
       </Container>
       <div className="info-container">
         <div className="winnings-window">
-          <h4>Winnings</h4>
+          <h1 style={{ fontSize: "1.2rem" }}>Winnings</h1>
           {winnings}
         </div>
         <div className="bet-container">
           <div className="bet-window">
-            <h5>Bet</h5>
+            <h2 style={{ fontSize: "1.2rem" }}>Bet</h2>
             <Form>
               <input
+                aria-label="bet window"
                 className="bet-input"
                 onChange={adjustBet}
                 value={bet}
@@ -448,9 +449,10 @@ export default function Play({
           </div>
           {secondHand.length > 0 && (
             <div className="bet-window">
-              <h5>Bet</h5>
+              <h2 style={{ fontSize: "1.2rem" }}>Bet</h2>
               <Form>
                 <input
+                  aria-label="second bet window"
                   className="bet-input"
                   onChange={adjustSecondBet}
                   value={secondBet}

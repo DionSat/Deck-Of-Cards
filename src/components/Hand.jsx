@@ -29,11 +29,11 @@ export default function Hand({ hand, total, setTotal, turn }) {
             hand.map((card, index) => {
               return (
                 <img
+                  alt={`${card.value} card`}
                   className="card-image"
                   src={card.images.png}
                   key={index}
                   id="card-image-glow"
-                  data-zindex={index}
                 />
               );
             })
