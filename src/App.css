@@ -12,21 +12,31 @@
   width: 100vw;
 }
 
+.bet-container {
+  display: flex;
+  flex-grow: 1;
+}
+
 .bet-input {
-  max-width: 100px;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+  text-align: center;
+  max-width: 8rem;
 }
 
 .bet-window {
   align-items: center;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 5px 5px #b22222;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  width: 175px;
+  justify-content: space-between;
+  padding: 0.25rem 1rem;
+  width: 12rem;
 }
 
 .blackjack-table {
-  width: 240px;
-  height: 240px;
   background-color: #008000;
   background-image: radial-gradient(#006400 15%, transparent 15%),
     radial-gradient(#006400 15%, transparent 15%);
@@ -36,8 +46,17 @@
   border-bottom: 40px solid #2f1000;
   border-bottom-left-radius: 90%;
   border-bottom-right-radius: 90%;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  overflow: hidden;
+  justify-content: space-around;
+  overflow: visible;
+}
+
+.button-container {
+  align-items: center;
+  display: flex;
+  margin-right: 1.5rem;
 }
 
 .card-image {
@@ -47,6 +66,85 @@
 #card-image-glow {
   box-shadow: 0 0 5px 5px gold;
   border-radius: 5%;
+}
+
+.hand-total {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.winnings-window {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 5px 5px #b22222;
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 1.0rem;
+}
+
+@media screen and (min-width: 768px) {
+  .bet-window {
+    margin: 1.5rem;
+  }
+
+  .card-image {
+    height: 8.75rem;
+    width: 6.25rem;
+  }
+
+  .info-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .winnings-window {
+    flex-direction: column;
+    margin: 1.5rem;
+    position: absolute;
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .bet-window {
+    margin: 1rem 0.25rem;
+  }
+
+  .button-container {
+    margin: 0 1rem 1rem 1rem;
+  }
+
+  .card-image {
+    height: 7rem;
+    width: 5rem;
+  }
+
+  .info-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .winnings-window {
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 567px) {
+  .card-image {
+    height: 3.5rem;
+    width: 2.5rem;
+  }
 }
 
 @keyframes bounce-in-right {
@@ -63,89 +161,5 @@
   }
   100% {
     transform: translateX(0);
-  }
-}
-
-.info-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.winnings-window {
-  text-align: center;
-  width: 175px;
-}
-
-@media screen and (min-width: 768px) {
-  .bet-window {
-    margin: 1.5rem;
-  }
-
-  .button-container {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 1.5rem;
-  }
-
-  .card-image {
-    height: 140px;
-    width: 100px;
-  }
-
-  .hand-total {
-    font-size: 1.2rem;
-    padding: 15px;
-  }
-
-  .winnings-window {
-    margin: 1.5rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.5rem;
-  }
-
-  .card-image {
-    height: 105px;
-    width: 75px;
-  }
-
-  .chips-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .hand-total {
-    font-size: 0.8rem;
-    padding: 10px;
-  }
-
-  .info-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 1rem;
-  }
-}
-
-@media screen and (max-width: 414px) {
-  .card-image {
-    height: 70px;
-    width: 50px;
-  }
-
-  .hand-total {
-    font-size: 0.6rem;
-    padding: 5px;
   }
 }
