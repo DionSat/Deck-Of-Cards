@@ -1,7 +1,15 @@
 import React from "react";
-import { Button, Container, Navbar, Nav, Offcanvas } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Navbar,
+  Nav,
+  Offcanvas,
+  Row,
+  Col,
+} from "react-bootstrap";
 
-export default function HowToPlay() {
+export default function AboutUs() {
   return (
     <Container
       fluid
@@ -9,7 +17,9 @@ export default function HowToPlay() {
     >
       <Navbar bg="light" expand={false} fixed="top">
         <Container fluid="lg">
-          <Navbar.Brand><h5>BlackJack - How to Play</h5></Navbar.Brand>
+          <Navbar.Brand>
+            <h5>BlackJack - About Us</h5>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -37,20 +47,33 @@ export default function HowToPlay() {
         id="jumbo_h1"
         className="display-4 d-flex align-items-center justify-content-center bg-light"
       >
-        How To Play
+        About Us
       </h1>
       <br />
-      <Container className="d-flex flex-column align-items-center justify-content-center bg-light scrollbar">
-        <p className="my-4 rules">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          quaerat dolor praesentium soluta sequi laboriosam consectetur
-          corrupti, eius voluptatibus perspiciatis dolores excepturi possimus
-          fuga eveniet ipsa, vero amet esse distinctio! Lorem ipsum dolor sit
-          amet, consectetur adipisicing elit. Impedit quaerat dolor praesentium
-          soluta sequi laboriosam consectetur corrupti, eius voluptatibus
-          perspiciatis dolores excepturi possimus fuga eveniet ipsa, vero amet
-          esse distinctio!
-        </p>
+      <Container className="d-flex flex-column align-items-center justify-content-center scrollbar">
+        <Row className="justify-content-space-around">
+          <Col>
+            <img
+              className="about-us-image"
+              src="https://cdn.pixabay.com/photo/2022/02/23/20/25/card-7031432_1280.png"
+              alt="the image of the backside of a card"
+            />
+          </Col>
+          <Col>
+            <img
+              className="about-us-image"
+              src="https://cdn.pixabay.com/photo/2022/02/23/20/25/card-7031432_1280.png"
+              alt="the image of the backside of a card"
+            />
+          </Col>
+          <Col>
+            <img
+              className="about-us-image"
+              src="https://cdn.pixabay.com/photo/2022/02/23/20/25/card-7031432_1280.png"
+              alt="the image of the backside of a card"
+            />
+          </Col>
+        </Row>
       </Container>
       <br />
       <Button href="/" variant="outline-light" size="lg">
