@@ -7,12 +7,13 @@ import {
   Offcanvas,
   Row,
   Col,
+  Card,
 } from "react-bootstrap";
 
 export default function AboutUs() {
   const card_back_image_src =
     "https://cdn.pixabay.com/photo/2022/02/23/20/25/card-7031432_1280.png";
-  
+
   return (
     <Container
       fluid
@@ -56,38 +57,32 @@ export default function AboutUs() {
       <br />
       <Container
         fluid
-        className="d-flex flex-column align-items-center justify-content-center"
+        className="d-flex flex-column align-items-center justify-content-center card-layout"
       >
-        <Row>
-          <Col sm className="col-image">
-            <div className="card-inner">
-              <div className="card-front">
-                <img
-                  className="about-us-image"
-                  src={card_back_image_src}
-                  alt="the image of the backside of a card"
-                />
-              </div>
-              <div className="card-back">
-                <br/>
-                <p>Shane</p>
-                <p>PSU studnet</p>
-              </div>
-            </div>
+        <Row className="row-cards">
+          <Col sm>
+            <Card bg="danger" text="light" border="light">
+              <Card.Body>
+                <Card.Title>Shane</Card.Title>
+                <Card.Text>PSU student</Card.Text>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col sm className="col-image">
-            <img
-              className="about-us-image"
-              src={card_back_image_src}
-              alt="the image of the backside of a card"
-            />
+          <Col sm>
+            <Card bg="success" text="light" border="light">
+              <Card.Body>
+                <Card.Title>Dion</Card.Title>
+                <Card.Text>PSU student</Card.Text>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col sm className="col-image">
-            <img
-              className="about-us-image"
-              src={card_back_image_src}
-              alt="the image of the backside of a card"
-            />
+          <Col sm>
+            <Card bg="warning" text="dark" border="light">
+              <Card.Body>
+                <Card.Title>Rina</Card.Title>
+                <Card.Text>PSU student</Card.Text>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>
