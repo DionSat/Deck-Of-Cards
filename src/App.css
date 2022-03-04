@@ -146,3 +146,17 @@
   text-align: center;
   perspective: 1000px;
 }
+
+a.nav-link {
+  font-size: larger;
+  color: #212529;
+}
+
+a.nav-link:hover {
+  color:#6c757d;
+  text-decoration: #dc3545 solid underline 4px;
+}
+
+text span {
+  white-space: pre-wrap;
+}
