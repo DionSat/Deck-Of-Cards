@@ -13,9 +13,12 @@ import shuffleSound from "../sfx/shuffle.wav";
 import loseSound from "../sfx/lose.wav";
 import winSound from "../sfx/win.wav";
 import Hand from "./Hand.jsx";
+import Chips from "./Chips.jsx";
 import Toasts from "./Toasts.jsx";
+import { propTypes } from "react-bootstrap/esm/Image";
 
-export default function Play({props,
+export default function Play({
+  props,
   defaultPayout,
   defaultWinnings,
   defaultMinimum,
@@ -38,6 +41,7 @@ export default function Play({props,
   const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
   const [secondHandBust, didSecondhandBust] = React.useState(false);
+  const [pot, setPot] = React.useState(0);
   const [drawSfx] = useSound(drawSound);
   const [shuffleSfx] = useSound(shuffleSound);
   const [loseSfx] = useSound(loseSound);
@@ -225,7 +229,7 @@ export default function Play({props,
       didSecondhandBust(true);
       loseSfx();
     }
-  }, [secondTotal]);
+  }, [secondTotal, winnings]);
 
   React.useEffect(() => {
     //Check if the start of the game
@@ -254,7 +258,7 @@ export default function Play({props,
       currentBet.value = parseInt(bet);
       setSecondBet(currentBet.value);
     }
-  }, [secondHandTurn]);
+  }, [secondHandTurn, bet]);
 
   React.useEffect(() => {
     if (dealerHand.length <= 1) return;
@@ -380,6 +384,10 @@ export default function Play({props,
     }
   }, [winnings]);
 
+  React.useEffect(() => {
+    setPot(bet + secondBet);
+  }, [bet, secondBet])
+
   return (
     <Container role="main" fluid className="main-container bg-dark p-0 h-100">
       <ToastContainer className="position-absolute p-4" position="top-end">
@@ -390,49 +398,54 @@ export default function Play({props,
           setShow={setSecondShow}
         />
       </ToastContainer>
-      <Container fluid className='blackjack-table' id='blackjack-table'>
-        <Container className='d-flex justify-content-center'>
-          <Hand
-            hand={dealerHand}
-            total={dealerTotal}
-            setTotal={setDealerTotal}
-          />
+      <Container fluid className="blackjack-table" id="blackjack-table">
+        <Container className="chips-container h-100 w-25 p-4">
+          <Chips pot={pot} />
         </Container>
-        {secondHandTurn ? (
-          <Container className='d-flex justify-content-center' id='player-hand'>
+        <Container className="cards-container h-100 w-75">
+          <Container>
             <Hand
-              hand={yourHand}
-              total={yourTotal}
-              setTotal={setYourTotal}
-              turn={false}
+              hand={dealerHand}
+              total={dealerTotal}
+              setTotal={setDealerTotal}
             />
-            {secondHand.length > 0 && (
-              <Hand
-                hand={secondHand}
-                total={secondTotal}
-                setTotal={setSecondTotal}
-                turn={true}
-              />
-            )}
           </Container>
-        ) : (
-          <Container className='d-flex justify-content-center' id='player-hand'>
-            <Hand
-              hand={yourHand}
-              total={yourTotal}
-              setTotal={setYourTotal}
-              turn={true}
-            />
-            {secondHand.length > 0 && (
+          {secondHandTurn ? (
+            <Container id="player-hand">
               <Hand
-                hand={secondHand}
-                total={secondTotal}
-                setTotal={setSecondTotal}
+                hand={yourHand}
+                total={yourTotal}
+                setTotal={setYourTotal}
                 turn={false}
               />
-            )}
-          </Container>
-        )}
+              {secondHand.length > 0 && (
+                <Hand
+                  hand={secondHand}
+                  total={secondTotal}
+                  setTotal={setSecondTotal}
+                  turn={true}
+                />
+              )}
+            </Container>
+          ) : (
+            <Container id="player-hand">
+              <Hand
+                hand={yourHand}
+                total={yourTotal}
+                setTotal={setYourTotal}
+                turn={true}
+              />
+              {secondHand.length > 0 && (
+                <Hand
+                  hand={secondHand}
+                  total={secondTotal}
+                  setTotal={setSecondTotal}
+                  turn={false}
+                />
+              )}
+            </Container>
+          )}
+        </Container>
       </Container>
       <div className="info-container">
         <div className="winnings-window">
@@ -448,9 +461,9 @@ export default function Play({props,
                 className="bet-input"
                 onChange={adjustBet}
                 value={bet}
-                type='number'
-                min='1'
-                id='betWindow'
+                type="number"
+                min="1"
+                id="betWindow"
               />
             </Form>
           </div>
@@ -463,30 +476,30 @@ export default function Play({props,
                   className="bet-input"
                   onChange={adjustSecondBet}
                   value={secondBet}
-                  type='number'
-                  min='1'
-                  id='secondBetWindow'
+                  type="number"
+                  min="1"
+                  id="secondBetWindow"
                   disabled
                 />
               </Form>
             </div>
           )}
         </div>
-        <div className='button-container'>
-          <ButtonGroup className='d-flex align-items-center justify-content-center'>
-            <Button id='deal-button' onClick={newRound} variant='success'>
+        <div className="button-container">
+          <ButtonGroup className="d-flex align-items-center justify-content-center">
+            <Button id="deal-button" onClick={newRound} variant="success">
               Deal
             </Button>
-            <Button id='hit-button' className='disabled' onClick={hitMe}>
+            <Button id="hit-button" className="disabled" onClick={hitMe}>
               Hit
             </Button>
-            <Button id='stand-button' className='disabled' onClick={stand}>
+            <Button id="stand-button" className="disabled" onClick={stand}>
               Stand
             </Button>
-            <Button id='double-button' className='disabled' onClick={doubleBet}>
+            <Button id="double-button" className="disabled" onClick={doubleBet}>
               Double
             </Button>
-            <Button id='split-button' className='disabled' onClick={splitHand}>
+            <Button id="split-button" className="disabled" onClick={splitHand}>
               Split
             </Button>
           </ButtonGroup>

@@ -7,7 +7,7 @@ export default function Toasts({ message, show, setShow }) {
       bg="light"
       onClose={() => setShow(false)}
       show={show}
-      delay={3000}
+      delay={5000}
       autohide
     >
       <Toast.Header>
