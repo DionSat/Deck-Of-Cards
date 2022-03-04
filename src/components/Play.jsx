@@ -385,8 +385,12 @@ export default function Play({
   }, [winnings]);
 
   React.useEffect(() => {
-    setPot(bet + secondBet);
-  }, [bet, secondBet])
+    let pot = bet;
+
+    if (secondHand.length > 0) pot += secondBet;
+
+    setPot(pot);
+  }, [bet, secondBet]);
 
   return (
     <Container role="main" fluid className="main-container bg-dark p-0 h-100">
