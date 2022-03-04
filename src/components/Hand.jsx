@@ -21,16 +21,16 @@ export default function Hand({ hand, total, setTotal, turn }) {
   }, [hand]);
 
   return (
-    <div className="d-flex flex-row">
-      <div className="hand-total">{total}</div>
+    <div className="d-flex flex-row cards-wrapper">
+      <div className="hand-total me-3">{total}</div>
       {turn ? (
-        <div className="card-wrapper m-3">
+        <div className="m-1">
           {hand ? (
             hand.map((card, index) => {
               return (
                 <img
                   alt={`${card.value} card`}
-                  className="card-image"
+                  className="card-image m-1"
                   src={card.images.png}
                   key={index}
                   id="card-image-glow"
@@ -42,11 +42,11 @@ export default function Hand({ hand, total, setTotal, turn }) {
           )}
         </div>
       ) : (
-        <div className="m-3">
+        <div className="m-1">
           {hand ? (
             hand.map((card, index) => {
               return (
-                <img className="card-image" src={card.images.png} key={index} />
+                <img className="card-image m-1" src={card.images.png} key={index} />
               );
             })
           ) : (

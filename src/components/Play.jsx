@@ -394,8 +394,8 @@ export default function Play({
 
   return (
     <Container role="main" fluid className="main-container bg-dark p-0 h-100">
-      <ToastContainer className="position-absolute p-4" position="top-end">
-        <Toasts message={message} show={show} setShow={setShow} />
+      <ToastContainer className="position-absolute shrink-toast p-4" position="top-end">
+        <Toasts message={message} show={show} setShow={setShow}/>
         <Toasts
           message={secondMessage}
           show={secondShow}
@@ -403,10 +403,10 @@ export default function Play({
         />
       </ToastContainer>
       <Container fluid className="blackjack-table" id="blackjack-table">
-        <Container className="chips-container h-100 w-25 p-4">
+        <Container className="chips-container m-0">
           <Chips pot={pot} />
         </Container>
-        <Container className="cards-container h-100 w-75">
+        <Container className="cards-container h-75">
           <Container>
             <Hand
               hand={dealerHand}

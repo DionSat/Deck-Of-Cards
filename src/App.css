@@ -6,9 +6,15 @@
   text-shadow: 3px 3px 1px black;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.html,
 #root,
 #root > div {
   height: 100vh;
+  overflow: hidden;
   width: 100vw;
 }
 
@@ -69,10 +75,27 @@
 }
 
 .cards-container {
-  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  min-width: 80%;
+  overflow: hidden;
+}
+
+.chips-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  max-height: 80%;
+}
+
+.chips-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .chip-inner {
@@ -99,7 +122,6 @@
 }
 
 .chips-container {
-  align-items: center;
   display: flex;
 }
 
@@ -140,6 +162,15 @@
     width: 6.25rem;
   }
 
+  .chips-container {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chips-wrapper {
+    align-items: center;
+  }
+
   .info-container {
     display: flex;
     justify-content: space-between;
@@ -168,14 +199,26 @@
     width: 5rem;
   }
 
-  .card-wrapper {
-    position: relative;
+  .chips-container {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .chips-wrapper {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .info-container {
     align-items: center;
     display: flex;
     flex-direction: column;
+  }
+
+  .shrink-toast {
+    width: 40% !important;
   }
 
   .winnings-window {
@@ -185,10 +228,15 @@
   }
 }
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 414px) {
   .card-image {
     height: 4.725rem;
     width: 3.75rem;
+  }
+
+  .hand-total {
+    height: 1.8rem;
+    width: 1.8rem;
   }
 }
 

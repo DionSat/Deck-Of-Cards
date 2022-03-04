@@ -30,7 +30,10 @@ export default function Chips({ pot }) {
   }, [pot]);
 
   return (
-    <Container className="d-flex flex-row flex-wrap w-100">
+    <Container
+      fluid
+      className="chips-wrapper h-100 w-100 m-0 p-0"
+    >
       {chips.length > 0 &&
         chips.map((chip, index) => {
           return (
