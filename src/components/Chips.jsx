@@ -30,17 +30,17 @@ export default function Chips({ pot }) {
   }, [pot]);
 
   return (
-    <Container
-      fluid
-      className="chips-wrapper h-100 w-100 m-0 p-0"
-    >
+    <Container fluid className="chips-wrapper h-100 w-100 m-0 p-0">
       {chips.length > 0 &&
         chips.map((chip, index) => {
           return (
             <div className="chip-outer" key={`${chip.value}-${index}`}>
               <div
                 className="chip-inner"
-                style={{ backgroundColor: chip.color }}
+                style={{
+                  backgroundColor: chip.color,
+                  color: chip.color === "white" ? "black" : "white",
+                }}
               >
                 {chip.value}
               </div>

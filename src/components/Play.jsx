@@ -107,7 +107,6 @@ export default function Play({
     document.getElementById("hit-button").classList.remove("disabled");
     document.getElementById("stand-button").classList.remove("disabled");
     document.getElementById("double-button").classList.remove("disabled");
-    document.getElementById("split-button").classList.remove("disabled");
     document.getElementById("betWindow").disabled = true;
   };
 
@@ -119,6 +118,7 @@ export default function Play({
       document.getElementById("stand-button").classList.add("disabled");
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("split-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = false;
       setTimeout(() => dealerDraw(), 1500);
     } else {
@@ -126,6 +126,7 @@ export default function Play({
       document.getElementById("stand-button").classList.add("disabled");
       document.getElementById("deal-button").classList.remove("disabled");
       document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("split-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = false;
       setTimeout(() => dealerDraw(), 1500);
     }
@@ -194,6 +195,7 @@ export default function Play({
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
       document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("split-button").classList.add("disabled");
       setTimeout(() => dealerDraw(), 1500);
     }
   };
@@ -212,6 +214,7 @@ export default function Play({
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
       document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("split-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = false;
       setMessage(`Bust! -${bet}`);
       setShow(true);
@@ -378,6 +381,7 @@ export default function Play({
       document.getElementById("hit-button").classList.add("disabled");
       document.getElementById("stand-button").classList.add("disabled");
       document.getElementById("double-button").classList.add("disabled");
+      document.getElementById("split-button").classList.add("disabled");
       document.getElementById("betWindow").disabled = true;
       setMessage("Game over!");
       setShow(true);
@@ -385,17 +389,20 @@ export default function Play({
   }, [winnings]);
 
   React.useEffect(() => {
-    let pot = bet;
+    let pot = parseInt(bet);
 
-    if (secondHand.length > 0) pot += secondBet;
+    if (secondHand.length > 0) pot += parseInt(secondBet);
 
     setPot(pot);
   }, [bet, secondBet]);
 
   return (
     <Container role="main" fluid className="main-container bg-dark p-0 h-100">
-      <ToastContainer className="position-absolute shrink-toast p-4" position="top-end">
-        <Toasts message={message} show={show} setShow={setShow}/>
+      <ToastContainer
+        className="position-absolute shrink-toast p-4"
+        position="top-end"
+      >
+        <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
           message={secondMessage}
           show={secondShow}
@@ -415,7 +422,7 @@ export default function Play({
             />
           </Container>
           {secondHandTurn ? (
-            <Container id="player-hand">
+            <Container className="d-flex flex-row" id="player-hand">
               <Hand
                 hand={yourHand}
                 total={yourTotal}
@@ -432,7 +439,7 @@ export default function Play({
               )}
             </Container>
           ) : (
-            <Container id="player-hand">
+            <Container className="d-flex flex-row" id="player-hand">
               <Hand
                 hand={yourHand}
                 total={yourTotal}
