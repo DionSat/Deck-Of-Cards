@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Container, Navbar, Nav, Offcanvas } from "react-bootstrap";
+import { Button, Container, } from "react-bootstrap";
+import NavigationBar from "./NavigationBar";
 
 export default function HowToPlay() {
   return (
@@ -7,31 +8,7 @@ export default function HowToPlay() {
       fluid
       className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
     >
-      <Navbar bg="light" expand={false} fixed="top">
-        <Container fluid="lg">
-          <Navbar.Brand><h5>BlackJack - How to Play</h5></Navbar.Brand>
-          <Navbar.Toggle aria-controls="offcanvasNavbar" />
-          <Navbar.Offcanvas
-            id="offcanvasNavbar"
-            aria-lavelledby="offcanvasNavbarLabel"
-            placement="end"
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">
-                BlackJack
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end">
-                <Nav.Link href="/">BlackJack</Nav.Link>
-                <Nav.Link href="/play">Play</Nav.Link>
-                <Nav.Link href="/how-to-play">How to Play</Nav.Link>
-                <Nav.Link href="/about-us">About Us</Nav.Link>
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
+      <NavigationBar brand="How To Play"/>
       <br />
       <h1
         id="jumbo_h1"
@@ -40,17 +17,28 @@ export default function HowToPlay() {
         How To Play
       </h1>
       <br />
-      <Container className="d-flex flex-column align-items-center justify-content-center bg-light scrollbar">
-        <p className="my-4 rules">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-          quaerat dolor praesentium soluta sequi laboriosam consectetur
-          corrupti, eius voluptatibus perspiciatis dolores excepturi possimus
-          fuga eveniet ipsa, vero amet esse distinctio! Lorem ipsum dolor sit
-          amet, consectetur adipisicing elit. Impedit quaerat dolor praesentium
-          soluta sequi laboriosam consectetur corrupti, eius voluptatibus
-          perspiciatis dolores excepturi possimus fuga eveniet ipsa, vero amet
-          esse distinctio!
-        </p>
+      <Container className="d-flex flex-column align-items-center justify-content-center bg-light scrollbar rules">
+        <h3 className="my-2">Basic Rules</h3>
+        <text className="my-1">
+          Beat the dealer by getting your hand total close to 21 but going over
+          21.
+        </text>
+        <text className="my-1 text-justify">
+          Start the game by press{" "}
+          <span className="bg-success text-white"> Deal </span>. If you'd like
+          to draw another card to improve the count, press{" "}
+          <span className="bg-primary text-light"> Hit </span>. If you want to
+          stick with your current hand, press{" "}
+          <span className="bg-primary text-light"> Stand </span>. When your
+          count is beneficial enough so you would like to double the bet, press{" "}
+          <span className="bg-primary text-light"> Double </span>. It will give
+          you exactly one more card and increase the initial bet by 100%. When
+          your initial cards are a pair of the same value and you would like to
+          create another hand by splitting the two cards, press{" "}
+          <span className="bg-primary text-light"> Split </span>.
+        </text>
+
+        <br />
       </Container>
       <br />
       <Button href="/" variant="outline-light" size="lg">
