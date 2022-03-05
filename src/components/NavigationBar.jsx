@@ -1,12 +1,11 @@
 import React from "react";
 import { Container, Navbar, Nav, Offcanvas } from "react-bootstrap";
 
-export default function NavigationBar({brand}) {
-
+export default function NavigationBar({ brand }) {
   return (
     <Navbar bg="light" expand={false} fixed="top">
       <Container fluid="lg">
-        <Navbar.Brand >
+        <Navbar.Brand>
           <h5>{brand}</h5>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -21,7 +20,7 @@ export default function NavigationBar({brand}) {
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="justify-content-end">
+            <Nav className="justify-content-end" role="navigation">
               <Nav.Link href="/">
                 <img
                   src="https://img.icons8.com/ios/24/000000/home--v1.png"
@@ -49,6 +48,12 @@ export default function NavigationBar({brand}) {
                   alt="info icon"
                 />{" "}
                 About Us
+              </Nav.Link>
+              <Nav.Link
+                href="https://icons8.com/"
+                className="bottom-nav-link"
+              >
+                all icons from icons8
               </Nav.Link>
             </Nav>
           </Offcanvas.Body>
