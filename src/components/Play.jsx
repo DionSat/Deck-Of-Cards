@@ -422,11 +422,7 @@ export default function Play({
             />
           </Container>
           {secondHandTurn ? (
-<<<<<<< HEAD
             <Container className="d-flex flex-row" id="player-hand">
-=======
-            <Container id='player-hand'>
->>>>>>> 46d2891a4310bf578246006e8bc449ce3480fe24
               <Hand
                 hand={yourHand}
                 total={yourTotal}
@@ -443,11 +439,7 @@ export default function Play({
               )}
             </Container>
           ) : (
-<<<<<<< HEAD
             <Container className="d-flex flex-row" id="player-hand">
-=======
-            <Container id='player-hand'>
->>>>>>> 46d2891a4310bf578246006e8bc449ce3480fe24
               <Hand
                 hand={yourHand}
                 total={yourTotal}
