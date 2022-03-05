@@ -385,28 +385,30 @@ export default function Play({
   }, [winnings]);
 
   React.useEffect(() => {
-    let pot = bet;
+    let pot = parseInt(bet);
 
-    if (secondHand.length > 0) pot += secondBet;
+    if (secondHand.length > 0) pot += parseInt(secondBet);
 
     setPot(pot);
   }, [bet, secondBet]);
 
   return (
-    <Container role="main" fluid className="main-container bg-dark p-0 h-100">
-      <ToastContainer className="position-absolute shrink-toast p-4" position="top-end">
-        <Toasts message={message} show={show} setShow={setShow}/>
+    <Container role='main' fluid className='main-container bg-dark p-0 h-100'>
+      <ToastContainer
+        className='position-absolute shrink-toast p-4'
+        position='top-end'>
+        <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
           message={secondMessage}
           show={secondShow}
           setShow={setSecondShow}
         />
       </ToastContainer>
-      <Container fluid className="blackjack-table" id="blackjack-table">
-        <Container className="chips-container m-0">
+      <Container fluid className='blackjack-table' id='blackjack-table'>
+        <Container className='chips-container m-0'>
           <Chips pot={pot} />
         </Container>
-        <Container className="cards-container h-75">
+        <Container className='cards-container h-75'>
           <Container>
             <Hand
               hand={dealerHand}
@@ -415,7 +417,7 @@ export default function Play({
             />
           </Container>
           {secondHandTurn ? (
-            <Container id="player-hand">
+            <Container id='player-hand'>
               <Hand
                 hand={yourHand}
                 total={yourTotal}
@@ -432,7 +434,7 @@ export default function Play({
               )}
             </Container>
           ) : (
-            <Container id="player-hand">
+            <Container id='player-hand'>
               <Hand
                 hand={yourHand}
                 total={yourTotal}
@@ -451,59 +453,59 @@ export default function Play({
           )}
         </Container>
       </Container>
-      <div className="info-container">
-        <div className="winnings-window">
+      <div className='info-container'>
+        <div className='winnings-window'>
           <h1 style={{ fontSize: "1.2rem" }}>Winnings</h1>
           {winnings}
         </div>
-        <div className="bet-container">
-          <div className="bet-window">
+        <div className='bet-container'>
+          <div className='bet-window'>
             <h2 style={{ fontSize: "1.2rem" }}>Bet</h2>
             <Form>
               <input
-                aria-label="bet window"
-                className="bet-input"
+                aria-label='bet window'
+                className='bet-input'
                 onChange={adjustBet}
                 value={bet}
-                type="number"
-                min="1"
-                id="betWindow"
+                type='number'
+                min='1'
+                id='betWindow'
               />
             </Form>
           </div>
           {secondHand.length > 0 && (
-            <div className="bet-window">
+            <div className='bet-window'>
               <h2 style={{ fontSize: "1.2rem" }}>Bet</h2>
               <Form>
                 <input
-                  aria-label="second bet window"
-                  className="bet-input"
+                  aria-label='second bet window'
+                  className='bet-input'
                   onChange={adjustSecondBet}
                   value={secondBet}
-                  type="number"
-                  min="1"
-                  id="secondBetWindow"
+                  type='number'
+                  min='1'
+                  id='secondBetWindow'
                   disabled
                 />
               </Form>
             </div>
           )}
         </div>
-        <div className="button-container">
-          <ButtonGroup className="d-flex align-items-center justify-content-center">
-            <Button id="deal-button" onClick={newRound} variant="success">
+        <div className='button-container'>
+          <ButtonGroup className='d-flex align-items-center justify-content-center'>
+            <Button id='deal-button' onClick={newRound} variant='success'>
               Deal
             </Button>
-            <Button id="hit-button" className="disabled" onClick={hitMe}>
+            <Button id='hit-button' className='disabled' onClick={hitMe}>
               Hit
             </Button>
-            <Button id="stand-button" className="disabled" onClick={stand}>
+            <Button id='stand-button' className='disabled' onClick={stand}>
               Stand
             </Button>
-            <Button id="double-button" className="disabled" onClick={doubleBet}>
+            <Button id='double-button' className='disabled' onClick={doubleBet}>
               Double
             </Button>
-            <Button id="split-button" className="disabled" onClick={splitHand}>
+            <Button id='split-button' className='disabled' onClick={splitHand}>
               Split
             </Button>
           </ButtonGroup>
