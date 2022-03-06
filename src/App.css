@@ -291,8 +291,22 @@
   text-align: center;
   perspective: 1000px;
   min-width: 80%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.col-card {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 576px) {
+  .col-card{
+    padding-bottom: 20px;
+  }
+
 }
 
 a.nav-link {
@@ -326,8 +340,10 @@ text span {
 
 .card-container {
   background-color: transparent;
+  max-height: 468px;
+  max-width: 299px;
   height: 200px;
-  width: 100px;
+  width: 136px;
   margin: 0;
   padding: 0;
   position: relative;
