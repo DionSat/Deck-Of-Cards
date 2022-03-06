@@ -1,17 +1,112 @@
-import React from "react";
-import { Button, ButtonGroup, Container } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Carousel,
+  Form,
+  Row,
+  Col,
+} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import NavigationBar from "./NavigationBar";
 
 export default function Home() {
+  const [startingChips, setStartingChips] = useState(5);
+  const [minBet, setMinBet] = useState(5);
+  const [maxBet, setMaxBet] = useState(1000);
+  const [payout, setPayout] = useState(1.5);
+  let navigate = useNavigate();
+  const background_image_src =
+    "https://images.unsplash.com/photo-1541278107931-e006523892df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80";
+
   return (
-    <Container className="d-flex flex-column align-items-center justify-content-center h-100">
-      <ButtonGroup size="lg">
-        <Button href="/play" variant="primary">
-          Play
-        </Button>
-        <Button href="/how-to-play" variant="outline-primary">
-          Rules
-        </Button>
-      </ButtonGroup>
-    </Container>
+    <>
+      <NavigationBar brand="Home"/>
+      <Container
+        fluid
+        className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
+      >
+        <br />
+        <Carousel variant="light">
+          <Carousel.Item className="d-block">
+            <img
+              className="d-flex home_image"
+              src={background_image_src}
+              alt="the image of cards"
+            />
+            <Carousel.Caption>
+              <h1 id="carousel-caption">BlackJack</h1>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+        <br />
+
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label className="text-light">Starting Chips</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="stating chips"
+              value={startingChips}
+              onChange={(e) => setStartingChips(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group as={Col}>
+            <Form.Label className="text-light">Minimum Bet</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="minimum bet"
+              value={minBet}
+              onChange={(e) => setMinBet(e.target.value)}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label className="text-light">Pay Out</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="play out"
+              value={payout}
+              onChange={(e) => setPayout(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group as={Col}>
+            <Form.Label className="text-light">Maximum Bet</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="maximum bet"
+              value={maxBet}
+              onChange={(e) => setMaxBet(e.target.value)}
+            />
+          </Form.Group>
+        </Row>
+        <br />
+        <ButtonGroup size="lg">
+          <Button
+            variant="light"
+            type="submit"
+            onClick={async () => {
+              navigate("/play", {
+                state: {
+                  startingChips: startingChips,
+                  minBet: minBet,
+                  maxBet: maxBet,
+                  payout: payout,
+                },
+              });
+            }}
+          >
+            Play
+          </Button>
+          <Button href="/how-to-play" variant="outline-light" type="button">
+            Rules
+          </Button>
+        </ButtonGroup>
+
+        <br />
+      </Container>
+    </>
   );
 }

@@ -1,7 +1,13 @@
-export default function App() {
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Routing from "./components/Routing.jsx";
+
+function App() {
   return (
   <div>
-    <h1>Hello World</h1>
+    <Routing />
   </div>
   );
 }
+
+export default App;
