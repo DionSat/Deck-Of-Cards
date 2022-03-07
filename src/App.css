@@ -1,6 +1,8 @@
 :root {
   --primary-blue: #0d6efd;
   --danger-red: #dc3545;
+  --warning-yellow: #ffc107;
+  --success-green: #198754;
   --cyan: #0dcaf0;
   --gray-400: #ced4da;
   --gray-600: #6c757d;
@@ -270,6 +272,10 @@
 
 .rules {
   max-height: 350px;
+  max-width: 70%;
+  border: 1px solid white;
+  border-radius: 30px;
+  font-size: large;
 }
 
 #jumbo_h1 {
@@ -291,8 +297,15 @@
   text-align: center;
   perspective: 1000px;
   min-width: 80%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.col-card {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-top: 20px;
 }
 
 a.nav-link {
@@ -326,8 +339,10 @@ text span {
 
 .card-container {
   background-color: transparent;
+  max-height: 468px;
+  max-width: 299px;
   height: 200px;
-  width: 100px;
+  width: 136px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -380,4 +395,24 @@ text span {
 
 .card-front-img {
   height: 100%;
+}
+
+@media screen and (max-width: 576px) {
+  .col-card{
+    padding-bottom: 20px;
+  }
+}
+
+#play-submit:hover {
+  background-color: var(--warning-yellow);
+}
+
+#rule-button:hover {
+  background-color: var(--success-green);
+  color: white;
+}
+
+#back-button:hover {
+  background-color: var(--primary-blue);
+  color: white;
 }

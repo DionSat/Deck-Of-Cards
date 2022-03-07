@@ -3,7 +3,7 @@ import { Container, Navbar, Nav, Offcanvas } from "react-bootstrap";
 
 export default function NavigationBar({ brand }) {
   return (
-    <Navbar bg="light" expand={false} fixed="top">
+    <Navbar bg="light" expand={false} fixed="top" className="navbar">
       <Container fluid="lg">
         <Navbar.Brand>
           <h5>{brand}</h5>

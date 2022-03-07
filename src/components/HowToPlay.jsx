@@ -1,14 +1,16 @@
 import React from "react";
-import { Button, Container, } from "react-bootstrap";
+import { Button, ButtonGroup, Container } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
+import { useNavigate } from "react-router-dom";
 
 export default function HowToPlay() {
+  let navigate = useNavigate();
   return (
     <Container
       fluid
       className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
     >
-      <NavigationBar brand="How To Play"/>
+      <NavigationBar brand="How To Play" />
       <br />
       <h1
         id="jumbo_h1"
@@ -17,7 +19,7 @@ export default function HowToPlay() {
         How To Play
       </h1>
       <br />
-      <Container className="d-flex flex-column align-items-center justify-content-center bg-light scrollbar rules">
+      <Container className="d-flex flex-column align-items-center justify-content-center text-light scrollbar rules">
         <h3 className="my-2">Basic Rules</h3>
         <text className="my-1">
           Beat the dealer by getting your hand total close to 21 but going over
@@ -41,9 +43,28 @@ export default function HowToPlay() {
         <br />
       </Container>
       <br />
-      <Button href="/" variant="outline-light" size="lg">
-        Back
-      </Button>
+      <ButtonGroup size="lg">
+        <Button
+          variant="light"
+          type="submit"
+          id="play-submit"
+          onClick={async () => {
+            navigate("/play", {
+              state: {
+                startingChips: 5,
+                minBet: 5,
+                maxBet: 1000,
+                payout: 1.5,
+              },
+            });
+          }}
+        >
+          Play with Default Settings
+        </Button>{" "}
+        <Button href="/" variant="outline-light" id="back-button" >
+          Back to Home
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 }

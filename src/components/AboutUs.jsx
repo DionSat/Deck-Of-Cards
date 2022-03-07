@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
 import FlipCard from "./FlipCard";
 
@@ -14,27 +14,32 @@ export default function AboutUs() {
     >
       <NavigationBar brand="About Us" />
       <br />
-      <h1 className="display-4 text-light">About Us</h1>
-      <h5 className="display-6 bg-light">We are a team of PSU students.</h5>
-      <p className="my-2 bg-light">
-        The goal if this project is providing accessible web-based BlackJack
-        Game.
-      </p>
-      <br />
+      <Container
+        fluid
+        className="d-flex flex-column align-items-center justify-content-center bg-dark"
+      >
+        <h1 className="display-4 text-light">About Us</h1>
+        <h5 className="display-6 text-light">We are a team of PSU students.</h5>
+        <p className="my-2 text-light">
+          The goal if this project is providing accessible web-based BlackJack
+          Game.
+        </p>
+      </Container>
       <Container
         fluid
         className="d-flex flex-column align-items-center justify-content-center card-layout"
       >
         <Row className="row-cards">
-          <Col sm>
+          <Col sm  className="col-card">
             <FlipCard
               front_img_src={card_back_image_src}
               name="Shane"
               back_text_color="text-danger"
               back_bgcolor="bg-light"
+              className="flip-profile"
             />
           </Col>
-          <Col sm>
+          <Col sm className="col-card">
             <FlipCard
               front_img_src={card_back_image_src}
               name="Dion"
@@ -42,7 +47,7 @@ export default function AboutUs() {
               back_bgcolor="bg-light"
             />
           </Col>
-          <Col sm>
+          <Col sm className="col-card">
             <FlipCard
               front_img_src={card_back_image_src}
               name="Rina"
