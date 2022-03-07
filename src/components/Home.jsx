@@ -27,7 +27,7 @@ export default function Home() {
       <NavigationBar brand="Home" />
       <Container
         fluid
-        className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
+        className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar body-with-navbar"
       >
         <Carousel variant="light">
           <Carousel.Item className="d-block">

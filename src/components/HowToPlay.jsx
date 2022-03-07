@@ -10,7 +10,7 @@ export default function HowToPlay() {
       <NavigationBar brand="How To Play" />
       <Container
         fluid
-        className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar no-padding-side"
+        className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar no-padding-side body-with-navbar"
       >
         <br />
         <h1

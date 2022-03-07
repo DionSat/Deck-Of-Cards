@@ -435,6 +435,21 @@ text span {
   padding-right: 0;
 }
 
-body {
+.body-with-navbar {
   padding-top: 58px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+#mininav {
+  position: fixed;
+  top: 5px;
+  right: 10px;
+}
+
+#mininav-menu {
+  min-width: 4rem;
+  text-align: center;
 }

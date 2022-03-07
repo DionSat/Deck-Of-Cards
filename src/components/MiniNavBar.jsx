@@ -1,47 +1,39 @@
 import React from "react";
-import { Container, Navbar, Nav, Offcanvas } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 export default function MiniNavBar() {
   return (
-    <Navbar variant="light" expand={false} placement="end">
-      <Navbar.Toggle aria-controls="offcanvasNavbar" />
-      <Navbar.Offcanvas
-        id="offcanvasNavbar"
-        aria-lavelledby="offcanvasNavbarLabel"
-        placement="end"
-      >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title id="offcanvasNavbarLabel">BlackJack</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <Nav className="justify-content-end" role="navigation">
-            <Nav.Link href="/">
-              <img
-                src="https://img.icons8.com/ios/24/000000/home--v1.png"
-                alt="home icon"
-              />{" "}
-              Home
-            </Nav.Link>
-            <Nav.Link href="/how-to-play">
-              <img
-                src="https://img.icons8.com/material-outlined/24/000000/rules.png"
-                alt="rules icon"
-              />{" "}
-              How to Play
-            </Nav.Link>
-            <Nav.Link href="/about-us">
-              <img
-                src="https://img.icons8.com/material/24/000000/info--v1.png"
-                alt="info icon"
-              />{" "}
-              About Us
-            </Nav.Link>
-            <Nav.Link href="https://icons8.com/" className="bottom-nav-link">
-              all icons from icons8
-            </Nav.Link>
-          </Nav>
-        </Offcanvas.Body>
-      </Navbar.Offcanvas>
-    </Navbar>
+    <Dropdown id="mininav"  role="navigation">
+      <Dropdown.Toggle variant="light">
+        <img src="https://img.icons8.com/material/24/000000/menu--v1.png" alt="navigation menu icon"/>
+      </Dropdown.Toggle>
+      <Dropdown.Menu id="mininav-menu">
+        <Dropdown.Item href="/">
+          <img
+            src="https://img.icons8.com/windows/24/000000/home.png"
+            alt="home icon"
+          />
+        </Dropdown.Item>
+        <Dropdown.Item href="/how-to-play">
+          <img
+            src="https://img.icons8.com/material-outlined/24/000000/rules.png"
+            alt="rules icon"
+          />
+        </Dropdown.Item>
+        <Dropdown.Item href="/about-us">
+          <img
+            src="https://img.icons8.com/material/24/000000/info--v1.png"
+            alt="info icon"
+          />
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="https://icons8.com/">
+          <img
+            src="https://img.icons8.com/material/24/000000/icons8-new-logo.png"
+            alt="icons8 icon"
+          />
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 }

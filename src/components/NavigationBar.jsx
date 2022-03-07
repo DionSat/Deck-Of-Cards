@@ -23,7 +23,7 @@ export default function NavigationBar({ brand }) {
             <Nav className="justify-content-end" role="navigation">
               <Nav.Link href="/">
                 <img
-                  src="https://img.icons8.com/ios/24/000000/home--v1.png"
+                  src="https://img.icons8.com/windows/24/000000/home.png"
                   alt="home icon"
                 />{" "}
                 Home
@@ -49,10 +49,11 @@ export default function NavigationBar({ brand }) {
                 />{" "}
                 About Us
               </Nav.Link>
-              <Nav.Link
-                href="https://icons8.com/"
-                className="bottom-nav-link"
-              >
+              <Nav.Link href="https://icons8.com/" className="bottom-nav-link">
+                <img
+                  src="https://img.icons8.com/plumpy/24/000000/icons8-logo.png"
+                  alt="icons8 icon"
+                />{" "}
                 all icons from icons8
               </Nav.Link>
             </Nav>

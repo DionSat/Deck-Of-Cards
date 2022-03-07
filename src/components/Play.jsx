@@ -16,6 +16,7 @@ import Hand from "./Hand.jsx";
 import Chips from "./Chips.jsx";
 import Toasts from "./Toasts.jsx";
 import { propTypes } from "react-bootstrap/esm/Image";
+import MiniNavBar from "./MiniNavBar";
 
 export default function Play({
   props,
@@ -410,6 +411,7 @@ export default function Play({
         />
       </ToastContainer>
       <Container fluid className='blackjack-table' id='blackjack-table'>
+      <MiniNavBar/>
         <Container className='chips-container m-0'>
           <Chips pot={pot} />
         </Container>
