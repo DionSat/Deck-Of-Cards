@@ -278,7 +278,12 @@
   font-size: large;
   text-align: center;
   overflow-y: auto;
-  scroll-padding-top: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .rules {
+    margin-top: 50px;
+  }
 }
 
 #jumbo_h1 {
@@ -287,7 +292,6 @@
 
 .scrollbar {
   overflow-y: scroll;
-  scroll-padding-top: 70px;
 }
 
 .home_image {
@@ -310,6 +314,11 @@
   text-align: center;
   justify-content: center;
   padding-top: 20px;
+}
+
+.navbar {
+  width: 100%;
+  padding: 0 0;
 }
 
 a.nav-link {
@@ -419,4 +428,13 @@ text span {
 #back-button:hover {
   background-color: var(--primary-blue);
   color: white;
+}
+
+.no-padding-side {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body {
+  padding-top: 58px;
 }

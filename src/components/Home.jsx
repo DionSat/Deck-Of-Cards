@@ -29,7 +29,6 @@ export default function Home() {
         fluid
         className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
       >
-        <br />
         <Carousel variant="light">
           <Carousel.Item className="d-block">
             <img
@@ -134,8 +133,7 @@ export default function Home() {
             Rules
           </Button>
         </ButtonGroup>
-
-        <br />
+        <br/>
       </Container>
     </>
   );
