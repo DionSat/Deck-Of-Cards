@@ -29,12 +29,12 @@ export default function Home() {
         fluid
         className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar body-with-navbar"
       >
-        <Carousel variant="light">
-          <Carousel.Item className="d-block">
+        <Carousel fluid="sm" variant="light">
+          <Carousel.Item fluid="sm" className="d-block">
             <img
               className="d-flex home_image"
               src={background_image_src}
-              alt="the image of cards"
+              alt="the image of deck of cards"
             />
             <Carousel.Caption>
               <h1 id="carousel-caption">BlackJack</h1>
@@ -46,6 +46,7 @@ export default function Home() {
         <Row className="mb-3">
           <OverlayTrigger
             placement="top"
+            htmlFor="stating-chips"
             delay={{ show: 250, hide: 400 }}
             overlay={
               <Tooltip id="tooltip">
@@ -54,10 +55,11 @@ export default function Home() {
             }
           >
             <Form.Group as={Col}>
-              <Form.Label className="text-light">Starting Chips</Form.Label>
+              <Form.Label className="text-light" htmlFor="stating-chips">Starting Chips</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="stating chips"
+                id="stating-chips"
                 value={startingChips}
                 onChange={(e) => setStartingChips(e.target.value)}
               />
@@ -65,10 +67,11 @@ export default function Home() {
           </OverlayTrigger>
 
           <Form.Group as={Col}>
-            <Form.Label className="text-light">Minimum Bet</Form.Label>
+            <Form.Label className="text-light" htmlFor="minimum-bet">Minimum Bet</Form.Label>
             <Form.Control
               type="number"
               placeholder="minimum bet"
+              id="minimum-bet"
               value={minBet}
               onChange={(e) => setMinBet(e.target.value)}
             />
@@ -77,18 +80,20 @@ export default function Home() {
         <Row className="mb-3">
           <OverlayTrigger
             placement="bottom"
+            htmlFor="payout"
             delay={{ show: 250, hide: 400 }}
             overlay={
               <Tooltip id="tooltip">
-                You'll get the betting value times this payout rate when you win.
+                Payout 1.5 is the same as the 3:2 payout ratio.
               </Tooltip>
             }
           >
             <Form.Group as={Col}>
-              <Form.Label className="text-light">Pay Out</Form.Label>
+              <Form.Label className="text-light" htmlFor="payout">Payout</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="play out"
+                placeholder="payout"
+                id="payout"
                 value={payout}
                 onChange={(e) => setPayout(e.target.value)}
               />
@@ -96,10 +101,11 @@ export default function Home() {
           </OverlayTrigger>
 
           <Form.Group as={Col}>
-            <Form.Label className="text-light">Maximum Bet</Form.Label>
+            <Form.Label className="text-light" htmlFor="maximum-bet">Maximum Bet</Form.Label>
             <Form.Control
               type="number"
               placeholder="maximum bet"
+              id="maximum-bet"
               value={maxBet}
               onChange={(e) => setMaxBet(e.target.value)}
             />

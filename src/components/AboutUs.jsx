@@ -19,9 +19,9 @@ export default function AboutUs() {
           className="d-flex flex-column align-items-center justify-content-center text-align-center bg-dark body-with-navbar"
         >
           <h1 className="display-4 text-light">About Us</h1>
-          <h5 className="display-6 text-light">
+          <h2 className="display-6 text-light">
             We are a team of PSU students.
-          </h5>
+          </h2>
           <p className="my-2 text-light">
             The goal if this project is providing accessible web-based BlackJack
             Game.

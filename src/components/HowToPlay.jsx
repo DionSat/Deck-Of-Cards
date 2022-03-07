@@ -22,7 +22,7 @@ export default function HowToPlay() {
         <br />
         <Container className="align-items-center justify-content-center text-light rules">
           <br />
-          <h3 className="my-2">Basic Rules</h3>
+          <h2 className="my-2">Basic Rules</h2>
           <text className="my-1">
             Beat the dealer by getting your hand total close to{" "}
             <span className="bg-danger text-white"> 21 </span> but going over{" "}
@@ -32,11 +32,11 @@ export default function HowToPlay() {
             Start the game by press{" "}
             <span className="bg-success text-white"> Deal </span>. <br />
             If you'd like to draw another card to improve the count, press{" "}
-            <span className="bg-primary text-light"> Hit </span>. <br />
+            <span className="bg-air-force-blue text-light"> Hit </span>. <br />
             If you want to stick with your current hand, press{" "}
-            <span className="bg-primary text-light"> Stand </span>. <br />
+            <span className="bg-air-force-blue text-light"> Stand </span>. <br />
             When your count is beneficial enough so you would like to double the
-            bet, press <span className="bg-primary text-light">
+            bet, press <span className="bg-air-force-blue text-light">
               {" "}
               Double{" "}
             </span>. <br />
@@ -44,7 +44,7 @@ export default function HowToPlay() {
             by 100%. <br />
             When your initial cards are a pair of the same value and you would
             like to create another hand by splitting the two cards, press{" "}
-            <span className="bg-primary text-light"> Split </span>.
+            <span className="bg-air-force-blue text-light"> Split </span>.
           </text>
           <h3 className="my-2">Payout Rules</h3>
           <text className="my-1">
@@ -52,7 +52,8 @@ export default function HowToPlay() {
             you get the winning payout depending on your betting amount and
             payout rate. <br /> If the amount of your final bet is 10 and payout
             ratio is 1.5 (same as the 3:2), you will get 10 * 1.5 = 15.
-          </text><br />
+          </text>
+          <br />
           <text className="my-1 ">
             When you <span className="bg-warning text-dark"> lose </span> a
             game, you lose all your betting chips.
@@ -84,7 +85,6 @@ export default function HowToPlay() {
           </Button>
         </ButtonGroup>
         <br />
-       
       </Container>
     </>
   );
