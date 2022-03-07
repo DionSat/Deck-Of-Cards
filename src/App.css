@@ -272,6 +272,7 @@
 
 .rules {
   max-height: 350px;
+  max-width: 900px;
 }
 
 #jumbo_h1 {
@@ -405,5 +406,10 @@ text span {
 
 #rule-button:hover {
   background-color: var(--success-green);
+  color: white;
+}
+
+#back-button:hover {
+  background-color: var(--primary-blue);
   color: white;
 }

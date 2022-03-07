@@ -1,14 +1,16 @@
 import React from "react";
-import { Button, Container, } from "react-bootstrap";
+import { Button, ButtonGroup, Container } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
+import { useNavigate } from "react-router-dom";
 
 export default function HowToPlay() {
+  let navigate = useNavigate();
   return (
     <Container
       fluid
       className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
     >
-      <NavigationBar brand="How To Play"/>
+      <NavigationBar brand="How To Play" />
       <br />
       <h1
         id="jumbo_h1"
@@ -41,9 +43,28 @@ export default function HowToPlay() {
         <br />
       </Container>
       <br />
-      <Button href="/" variant="outline-light" size="lg">
-        Back
-      </Button>
+      <ButtonGroup size="lg">
+        <Button
+          variant="outline-light"
+          type="submit"
+          id="play-submit"
+          onClick={async () => {
+            navigate("/play", {
+              state: {
+                startingChips: 5,
+                minBet: 5,
+                maxBet: 1000,
+                payout: 1.5,
+              },
+            });
+          }}
+        >
+          Play with Default Settings
+        </Button>{" "}
+        <Button href="/" variant="outline-light" id="back-button" >
+          Back to Home
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 }
