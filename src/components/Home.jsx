@@ -7,6 +7,8 @@ import {
   Form,
   Row,
   Col,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
@@ -22,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <NavigationBar brand="Home"/>
+      <NavigationBar brand="Home" />
       <Container
         fluid
         className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark scrollbar"
@@ -43,15 +45,26 @@ export default function Home() {
         <br />
 
         <Row className="mb-3">
-          <Form.Group as={Col}>
-            <Form.Label className="text-light">Starting Chips</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="stating chips"
-              value={startingChips}
-              onChange={(e) => setStartingChips(e.target.value)}
-            />
-          </Form.Group>
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={
+              <Tooltip id="tooltip">
+                You can change the bet amount each turn.
+              </Tooltip>
+            }
+          >
+            <Form.Group as={Col}>
+              <Form.Label className="text-light">Starting Chips</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="stating chips"
+                value={startingChips}
+                onChange={(e) => setStartingChips(e.target.value)}
+              />
+            </Form.Group>
+          </OverlayTrigger>
+
           <Form.Group as={Col}>
             <Form.Label className="text-light">Minimum Bet</Form.Label>
             <Form.Control
@@ -63,15 +76,26 @@ export default function Home() {
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col}>
-            <Form.Label className="text-light">Pay Out</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="play out"
-              value={payout}
-              onChange={(e) => setPayout(e.target.value)}
-            />
-          </Form.Group>
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 250, hide: 400 }}
+            overlay={
+              <Tooltip id="tooltip">
+                You'll get the betting value times this payout rate when you win.
+              </Tooltip>
+            }
+          >
+            <Form.Group as={Col}>
+              <Form.Label className="text-light">Pay Out</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="play out"
+                value={payout}
+                onChange={(e) => setPayout(e.target.value)}
+              />
+            </Form.Group>
+          </OverlayTrigger>
+
           <Form.Group as={Col}>
             <Form.Label className="text-light">Maximum Bet</Form.Label>
             <Form.Control
@@ -101,8 +125,12 @@ export default function Home() {
           >
             Play
           </Button>
-          <Button id="rule-button"
-          href="/how-to-play" variant="outline-light" type="button">
+          <Button
+            id="rule-button"
+            href="/how-to-play"
+            variant="outline-light"
+            type="button"
+          >
             Rules
           </Button>
         </ButtonGroup>
