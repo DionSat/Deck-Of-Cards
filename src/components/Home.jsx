@@ -85,6 +85,7 @@ export default function Home() {
         <br />
         <ButtonGroup size="lg">
           <Button
+            id="play-submit"
             variant="light"
             type="submit"
             onClick={async () => {
@@ -100,7 +101,8 @@ export default function Home() {
           >
             Play
           </Button>
-          <Button href="/how-to-play" variant="outline-light" type="button">
+          <Button id="rule-button"
+          href="/how-to-play" variant="outline-light" type="button">
             Rules
           </Button>
         </ButtonGroup>
