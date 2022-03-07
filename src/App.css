@@ -272,7 +272,10 @@
 
 .rules {
   max-height: 350px;
-  max-width: 900px;
+  max-width: 70%;
+  border: 1px solid white;
+  border-radius: 30px;
+  font-size: large;
 }
 
 #jumbo_h1 {

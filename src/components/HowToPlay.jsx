@@ -19,7 +19,7 @@ export default function HowToPlay() {
         How To Play
       </h1>
       <br />
-      <Container className="d-flex flex-column align-items-center justify-content-center bg-light scrollbar rules">
+      <Container className="d-flex flex-column align-items-center justify-content-center text-light scrollbar rules">
         <h3 className="my-2">Basic Rules</h3>
         <text className="my-1">
           Beat the dealer by getting your hand total close to 21 but going over
@@ -45,7 +45,7 @@ export default function HowToPlay() {
       <br />
       <ButtonGroup size="lg">
         <Button
-          variant="outline-light"
+          variant="light"
           type="submit"
           id="play-submit"
           onClick={async () => {
