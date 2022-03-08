@@ -13,6 +13,7 @@ export default function CardValues() {
         <Container
           fluid
           className="d-flex flex-column align-items-center justify-content-center text-align-center bg-dark body-with-navbar"
+          role="presentation"
         >
           <h1 className="display-4 text-light">How to Count Card Values</h1>
           <br />
@@ -21,14 +22,14 @@ export default function CardValues() {
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/57/hearts-884196_1280.png"
-                alt="image of king of hearts"
+                alt="king of hearts"
               />
             </Col>
             <Col xs>
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/57/clubs-884198_1280.png"
-                alt="image of queen of clubs"
+                alt="queen of clubs"
               />
             </Col>
             <Col sm className="d-flex flex-column justify-content-center">
@@ -44,14 +45,14 @@ export default function CardValues() {
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/57/spades-884187_1280.png"
-                alt="image of ace of spades"
+                alt="ace of spades"
               />
             </Col>
             <Col xs>
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/56/diamonds-884185_1280.png"
-                alt="image of ace of diamonds"
+                alt="ace of diamonds"
               />
             </Col>
             <Col sm className="d-flex flex-column justify-content-center">
@@ -67,14 +68,14 @@ export default function CardValues() {
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/55/diamonds-884145_1280.png"
-                alt="image of 10 of diamonds"
+                alt="10 of diamonds"
               />
             </Col>
             <Col xs>
               <img
                 className="two-cards-in-a-row"
                 src="https://cdn.pixabay.com/photo/2015/08/11/11/56/spades-884178_1280.png"
-                alt="image of 8 of spades"
+                alt="8 of spades"
               />
             </Col>
             <Col sm className="d-flex flex-column justify-content-center">
