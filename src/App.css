@@ -4,6 +4,7 @@
   --warning-yellow: #ffc107;
   --success-green: #198754;
   --cyan: #0dcaf0;
+  --air-force-blue: #00308f;
   --gray-400: #ced4da;
   --gray-600: #6c757d;
   --gray-700: #495057;
@@ -271,11 +272,19 @@
 }
 
 .rules {
-  max-height: 350px;
+  max-height: 450px;
   max-width: 70%;
   border: 1px solid white;
   border-radius: 30px;
   font-size: large;
+  text-align: center;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .rules {
+    margin-top: 50px;
+  }
 }
 
 #jumbo_h1 {
@@ -306,6 +315,11 @@
   text-align: center;
   justify-content: center;
   padding-top: 20px;
+}
+
+.navbar {
+  width: 100%;
+  padding: 0 0;
 }
 
 a.nav-link {
@@ -415,4 +429,32 @@ text span {
 #back-button:hover {
   background-color: var(--primary-blue);
   color: white;
+}
+
+.no-padding-side {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.body-with-navbar {
+  padding-top: 58px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+#mininav {
+  position: fixed;
+  top: 5px;
+  right: 10px;
+}
+
+#mininav-menu {
+  min-width: 4rem;
+  text-align: center;
+}
+
+.bg-air-force-blue {
+  background-color: var(--air-force-blue);
 }
