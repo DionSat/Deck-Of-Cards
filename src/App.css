@@ -285,6 +285,12 @@
   .rules {
     margin-top: 50px;
   }
+  .col-card{
+    padding-bottom: 20px;
+  }
+  .two-cards-in-a-row {
+    max-width: 50px;
+  }
 }
 
 #jumbo_h1 {
@@ -411,12 +417,6 @@ text span {
   height: 100%;
 }
 
-@media screen and (max-width: 576px) {
-  .col-card{
-    padding-bottom: 20px;
-  }
-}
-
 #play-submit:hover {
   background-color: var(--warning-yellow);
 }
@@ -457,4 +457,26 @@ text span {
 
 .bg-air-force-blue {
   background-color: var(--air-force-blue);
+}
+
+.two-cards-in-a-row {
+  max-width: 200px;
+}
+
+.white-hr {
+  width: 85%;
+  margin: 0.5rem 0;
+  background-color: white;
+}
+
+@media screen and (min-width: 992px) {
+  .card-values-row {
+    width: 912px;
+  }
+}
+
+@media screen and (max-width: 472px) {
+  .two-cards-in-a-row {
+    max-width: 100px;
+  }
 }
