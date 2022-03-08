@@ -20,6 +20,12 @@ export default function MiniNavBar() {
             alt="rules icon"
           />
         </Dropdown.Item>
+        <Dropdown.Item href="/card-values">
+          <img
+            src="https://img.icons8.com/material/24/000000/roulette.png"
+            alt="roulette icon"
+          />
+        </Dropdown.Item>
         <Dropdown.Item href="/about-us">
           <img
             src="https://img.icons8.com/material/24/000000/info--v1.png"

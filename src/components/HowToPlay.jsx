@@ -59,26 +59,9 @@ export default function HowToPlay() {
             game, you lose all your betting chips.
           </text>
           <h3 className="my-2">Card Values</h3>
-          <img
-            className="bg-white"
-            src="https://img.icons8.com/ios/50/000000/queen-of-clubs.png"
-            alt="image of queen of clubs"
-          />{" "}
-          <img
-            className="bg-white"
-            src="https://img.icons8.com/ios/50/000000/jack-of-spades.png"
-            alt="image of jack of spades"
-          />{" "}
-          <text className="my-3 ">Picture cards count as 10.</text>{" "}
-          <img
-            className="bg-white"
-            src="https://img.icons8.com/ios/50/000000/ace-of-clubs.png"
-            alt="image of ace of clubs"
-          />{" "}
-          <text className="my-3 ">The ace can count as either 1 or 11.</text>
-          <br />
-          <text className="my-1 ">
-            The rest count their face value. No meaning for card suits.
+          <text className="my-3 ">
+            Picture cards count as 10. The ace can count as either 1 or 11. <br />The
+            rest count their face value. No meaning for card suits.
           </text>
           <br />
           <br />
@@ -111,4 +94,3 @@ export default function HowToPlay() {
     </>
   );
 }
-

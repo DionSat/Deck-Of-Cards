@@ -42,6 +42,13 @@ export default function NavigationBar({ brand }) {
                 />{" "}
                 How to Play
               </Nav.Link>
+              <Nav.Link href="/card-values">
+                <img
+                  src="https://img.icons8.com/material/24/000000/roulette.png"
+                  alt="roulette icon"
+                />{" "}
+                Card Values
+              </Nav.Link>
               <Nav.Link href="/about-us">
                 <img
                   src="https://img.icons8.com/material/24/000000/info--v1.png"
