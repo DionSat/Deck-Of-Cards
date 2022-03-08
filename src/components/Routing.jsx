@@ -8,13 +8,13 @@ import CardValues from "./CardValue.jsx";
 
 export default function Routing() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/play" element={<Play />} />
-        <Route path="/how-to-play" element={<HowToPlay />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/card-values" element={<CardValues />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/play' element={<Play />} />
+        <Route path='/how-to-play' element={<HowToPlay />} />
+        <Route path='/about-us' element={<AboutUs />} />
+        <Route path='/card-values' element={<CardValues />} />
       </Routes>
     </Router>
   );
