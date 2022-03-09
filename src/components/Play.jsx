@@ -37,9 +37,9 @@ export default function Play({
   const [secondMessage, setSecondMessage] = React.useState("");
   const [payout, setPayout] = React.useState(defaultPayout || 1.5);
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
-  const [bet, setBet] = React.useState(defaultMinimum || 5);
+  const [bet, setBet] = React.useState(defaultMinimum || 100);
   const [secondBet, setSecondBet] = React.useState(defaultMinimum || 0);
-  const [minimum, setMinimum] = React.useState(defaultMinimum || 5);
+  const [minimum, setMinimum] = React.useState(defaultMinimum || 100);
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
   const [secondHandBust, didSecondhandBust] = React.useState(false);
   const [pot, setPot] = React.useState(0);
@@ -398,11 +398,10 @@ export default function Play({
   }, [bet, secondBet]);
 
   return (
-    <Container role="main" fluid className="main-container bg-dark p-0 h-100">
+    <Container role='main' fluid className='main-container bg-dark p-0 h-100'>
       <ToastContainer
-        className="position-absolute shrink-toast p-4"
-        position="top-end"
-      >
+        className='position-absolute shrink-toast p-4'
+        position='top-end'>
         <Toasts message={message} show={show} setShow={setShow} />
         <Toasts
           message={secondMessage}
@@ -411,7 +410,7 @@ export default function Play({
         />
       </ToastContainer>
       <Container fluid className='blackjack-table' id='blackjack-table'>
-      <MiniNavBar/>
+        <MiniNavBar />
         <Container className='chips-container m-0'>
           <Chips pot={pot} />
         </Container>
@@ -424,7 +423,7 @@ export default function Play({
             />
           </Container>
           {secondHandTurn ? (
-            <Container className="d-flex flex-row" id="player-hand">
+            <Container className='d-flex flex-row' id='player-hand'>
               <Hand
                 hand={yourHand}
                 total={yourTotal}
@@ -441,7 +440,7 @@ export default function Play({
               )}
             </Container>
           ) : (
-            <Container className="d-flex flex-row" id="player-hand">
+            <Container className='d-flex flex-row' id='player-hand'>
               <Hand
                 hand={yourHand}
                 total={yourTotal}
