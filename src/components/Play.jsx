@@ -17,6 +17,7 @@ import Chips from "./Chips.jsx";
 import Toasts from "./Toasts.jsx";
 import { propTypes } from "react-bootstrap/esm/Image";
 import MiniNavBar from "./MiniNavBar";
+import { useLocation } from "react-router-dom";
 
 export default function Play({
   props,
@@ -24,6 +25,7 @@ export default function Play({
   defaultWinnings,
   defaultMinimum,
 }) {
+  const { state } = useLocation();
   const [deck, setDeck] = React.useState(null);
   const [yourHand, setYourHand] = React.useState([]);
   const [secondHand, setYourSecondHand] = React.useState([]);
@@ -35,13 +37,20 @@ export default function Play({
   const [message, setMessage] = React.useState("");
   const [secondShow, setSecondShow] = React.useState(false);
   const [secondMessage, setSecondMessage] = React.useState("");
-  const [payout, setPayout] = React.useState(defaultPayout || 1.5);
+  const [payout, setPayout] = React.useState(
+    state?.payout || defaultPayout || 1.5
+  );
   const [winnings, setWinnings] = React.useState(defaultWinnings || 100);
-  const [bet, setBet] = React.useState(defaultMinimum || 100);
+  const [bet, setBet] = React.useState(
+    state?.startingChips || defaultMinimum || 100
+  );
   const [secondBet, setSecondBet] = React.useState(defaultMinimum || 0);
-  const [minimum, setMinimum] = React.useState(defaultMinimum || 100);
+  const [minimum, setMinimum] = React.useState(
+    state?.minBet || defaultMinimum || 100
+  );
   const [secondHandTurn, setSecondHandTurn] = React.useState(false);
   const [secondHandBust, didSecondhandBust] = React.useState(false);
+  const [maximum, setMaximum] = React.useState(state?.maxBet || 1000);
   const [pot, setPot] = React.useState(0);
   const [drawSfx] = useSound(drawSound);
   const [shuffleSfx] = useSound(shuffleSound);
@@ -60,17 +69,15 @@ export default function Play({
   }, []);
 
   const adjustBet = (e) => {
-    if (e.target.value <= 1000 && e.target.value >= 1) {
-      if (e.target.value >= winnings) setBet(winnings);
-      else if (e.target.value < minimum) setBet(minimum);
+    if (e.target.value <= maximum && e.target.value >= minimum) {
+      if (e.target.value < minimum) setBet(minimum);
       else setBet(e.target.value);
     }
   };
 
   const adjustSecondBet = (e) => {
-    if (e.target.value <= 1000 && e.target.value >= 1) {
-      if (e.target.value >= winnings) setSecondBet(winnings);
-      else if (e.target.value < minimum) setSecondBet(minimum);
+    if (e.target.value <= maximum && e.target.value >= minimum) {
+      if (e.target.value < minimum) setSecondBet(minimum);
       else setSecondBet(e.target.value);
     }
   };
