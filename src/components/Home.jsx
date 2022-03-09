@@ -136,7 +136,7 @@ export default function Home() {
           </Button>
           <Button
             id='rule-button'
-            href='/how-to-play'
+            href={process.env.PUBLIC_URL + "/how-to-play"}
             variant='outline-light'
             type='button'>
             Rules
