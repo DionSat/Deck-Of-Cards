@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  HashRouter,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Home from "./Home.jsx";
 import Play from "./Play.jsx";
 import HowToPlay from "./HowToPlay.jsx";
