@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Deck-Of-Cards/static/css/main.7fa001f1.css",
-    "main.js": "/Deck-Of-Cards/static/js/main.95cd8291.js",
+    "main.js": "/Deck-Of-Cards/static/js/main.b37e03e6.js",
     "static/js/845.2e19d72a.chunk.js": "/Deck-Of-Cards/static/js/845.2e19d72a.chunk.js",
     "static/media/shuffle.wav": "/Deck-Of-Cards/static/media/shuffle.94b26662f081fdded06d.wav",
     "static/media/win.wav": "/Deck-Of-Cards/static/media/win.2f4a272e93e8d60a859b.wav",
@@ -9,11 +9,11 @@
     "static/media/draw.wav": "/Deck-Of-Cards/static/media/draw.1fa3e1fdd4eb3dde53a2.wav",
     "index.html": "/Deck-Of-Cards/index.html",
     "main.7fa001f1.css.map": "/Deck-Of-Cards/static/css/main.7fa001f1.css.map",
-    "main.95cd8291.js.map": "/Deck-Of-Cards/static/js/main.95cd8291.js.map",
+    "main.b37e03e6.js.map": "/Deck-Of-Cards/static/js/main.b37e03e6.js.map",
     "845.2e19d72a.chunk.js.map": "/Deck-Of-Cards/static/js/845.2e19d72a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7fa001f1.css",
-    "static/js/main.95cd8291.js"
+    "static/js/main.b37e03e6.js"
   ]
 }
