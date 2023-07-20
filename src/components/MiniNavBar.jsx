@@ -27,7 +27,7 @@ export default function MiniNavBar() {
           placement='left'
           delay={{ show: 250, hide: 300 }}
           overlay={<Tooltip id='tooltip'>How to Play</Tooltip>}>
-          <Dropdown.Item href='/how-to-play'>
+          <Dropdown.Item href='/#/how-to-play'>
             <img
               src='https://img.icons8.com/material-outlined/24/000000/rules.png'
               alt='rules icon'
@@ -39,7 +39,7 @@ export default function MiniNavBar() {
           placement='left'
           delay={{ show: 250, hide: 300 }}
           overlay={<Tooltip id='tooltip'>Card Values</Tooltip>}>
-          <Dropdown.Item href='/card-values'>
+          <Dropdown.Item href='/#/card-values'>
             <img
               src='https://img.icons8.com/material/24/000000/roulette.png'
               alt='roulette icon'
@@ -51,7 +51,7 @@ export default function MiniNavBar() {
           placement='left'
           delay={{ show: 250, hide: 300 }}
           overlay={<Tooltip id='tooltip'>About Us</Tooltip>}>
-          <Dropdown.Item href='/about-us'>
+          <Dropdown.Item href='/#/about-us'>
             <img
               src='https://img.icons8.com/material/24/000000/info--v1.png'
               alt='info icon'

@@ -27,28 +27,28 @@ export default function NavigationBar({ brand }) {
                 />{" "}
                 Home
               </Nav.Link>
-              <Nav.Link href='/play'>
+              <Nav.Link href='/#/play'>
                 <img
                   src='https://img.icons8.com/material/24/000000/cards.png'
                   alt='cards icon'
                 />{" "}
                 Play
               </Nav.Link>
-              <Nav.Link href='/how-to-play'>
+              <Nav.Link href='/#/how-to-play'>
                 <img
                   src='https://img.icons8.com/material-outlined/24/000000/rules.png'
                   alt='rules icon'
                 />{" "}
                 How to Play
               </Nav.Link>
-              <Nav.Link href='/card-values'>
+              <Nav.Link href='/#/card-values'>
                 <img
                   src='https://img.icons8.com/material/24/000000/roulette.png'
                   alt='roulette icon'
                 />{" "}
                 Card Values
               </Nav.Link>
-              <Nav.Link href='/about-us'>
+              <Nav.Link href='/#/about-us'>
                 <img
                   src='https://img.icons8.com/material/24/000000/info--v1.png'
                   alt='info icon'
