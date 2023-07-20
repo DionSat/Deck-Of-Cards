@@ -85,7 +85,7 @@ export default function HowToPlay() {
           >
             Play with Default Settings
           </Button>{" "}
-          <Button href="/" variant="outline-light" id="back-button">
+          <Button href="/Deck-Of-Cards" variant="outline-light" id="back-button">
             Back to Home
           </Button>
         </ButtonGroup>

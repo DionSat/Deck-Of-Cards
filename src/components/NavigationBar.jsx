@@ -20,35 +20,35 @@ export default function NavigationBar({ brand }) {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className='justify-content-end' role='navigation'>
-              <Nav.Link href='/'>
+              <Nav.Link href='/Deck-Of-Cards'>
                 <img
                   src='https://img.icons8.com/windows/24/000000/home.png'
                   alt='home icon'
                 />{" "}
                 Home
               </Nav.Link>
-              <Nav.Link href='/#/play'>
+              <Nav.Link href='/Deck-Of-Cards/#/play'>
                 <img
                   src='https://img.icons8.com/material/24/000000/cards.png'
                   alt='cards icon'
                 />{" "}
                 Play
               </Nav.Link>
-              <Nav.Link href='/#/how-to-play'>
+              <Nav.Link href='/Deck-Of-Cards/#/how-to-play'>
                 <img
                   src='https://img.icons8.com/material-outlined/24/000000/rules.png'
                   alt='rules icon'
                 />{" "}
                 How to Play
               </Nav.Link>
-              <Nav.Link href='/#/card-values'>
+              <Nav.Link href='/Deck-Of-Cards/#/card-values'>
                 <img
                   src='https://img.icons8.com/material/24/000000/roulette.png'
                   alt='roulette icon'
                 />{" "}
                 Card Values
               </Nav.Link>
-              <Nav.Link href='/#/about-us'>
+              <Nav.Link href='/Deck-Of-Cards/#/about-us'>
                 <img
                   src='https://img.icons8.com/material/24/000000/info--v1.png'
                   alt='info icon'

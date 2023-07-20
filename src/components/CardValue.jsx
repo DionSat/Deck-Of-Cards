@@ -86,7 +86,7 @@ export default function CardValues() {
           </Row>
           <br />
           <br />
-          <Button href="/" variant="outline-light" size="lg">
+          <Button href="/Deck-Of-Cards" variant="outline-light" size="lg">
             Back
           </Button>
         </Container>
