@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Route, Routes} from "react-router-dom";
 import Home from "./Home.jsx";
 import Play from "./Play.jsx";
 import HowToPlay from "./HowToPlay.jsx";
@@ -8,7 +9,16 @@ import CardValues from "./CardValue.jsx";
 
 export default function Routing() {
   return (
-    <Router>
+    // <Router>
+    //   <Routes>
+    //     <Route path='/' element={<Home />} />
+    //     <Route path='/play' element={<Play />} />
+    //     <Route path='/how-to-play' element={<HowToPlay />} />
+    //     <Route path='/about-us' element={<AboutUs />} />
+    //     <Route path='/card-values' element={<CardValues />} />
+    //   </Routes>
+    // </Router>
+    <HashRouter>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/play' element={<Play />} />
@@ -16,6 +26,6 @@ export default function Routing() {
         <Route path='/about-us' element={<AboutUs />} />
         <Route path='/card-values' element={<CardValues />} />
       </Routes>
-    </Router>
+  </HashRouter>
   );
 }
