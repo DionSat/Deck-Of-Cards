@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/Deck-Of-Cards/static/css/main.7fa001f1.css",
-    "main.js": "/Deck-Of-Cards/static/js/main.b3a6bb89.js",
-    "static/js/845.2e19d72a.chunk.js": "/Deck-Of-Cards/static/js/845.2e19d72a.chunk.js",
-    "static/media/shuffle.wav": "/Deck-Of-Cards/static/media/shuffle.94b26662f081fdded06d.wav",
-    "static/media/win.wav": "/Deck-Of-Cards/static/media/win.2f4a272e93e8d60a859b.wav",
-    "static/media/lose.wav": "/Deck-Of-Cards/static/media/lose.bc7fcb4411c7a953faf9.wav",
-    "static/media/draw.wav": "/Deck-Of-Cards/static/media/draw.1fa3e1fdd4eb3dde53a2.wav",
-    "index.html": "/Deck-Of-Cards/index.html",
-    "main.7fa001f1.css.map": "/Deck-Of-Cards/static/css/main.7fa001f1.css.map",
-    "main.b3a6bb89.js.map": "/Deck-Of-Cards/static/js/main.b3a6bb89.js.map",
-    "845.2e19d72a.chunk.js.map": "/Deck-Of-Cards/static/js/845.2e19d72a.chunk.js.map"
+    "main.css": "/static/css/main.7fa001f1.css",
+    "main.js": "/static/js/main.ce88a910.js",
+    "static/js/845.2e19d72a.chunk.js": "/static/js/845.2e19d72a.chunk.js",
+    "static/media/shuffle.wav": "/static/media/shuffle.94b26662f081fdded06d.wav",
+    "static/media/win.wav": "/static/media/win.2f4a272e93e8d60a859b.wav",
+    "static/media/lose.wav": "/static/media/lose.bc7fcb4411c7a953faf9.wav",
+    "static/media/draw.wav": "/static/media/draw.1fa3e1fdd4eb3dde53a2.wav",
+    "index.html": "/index.html",
+    "main.7fa001f1.css.map": "/static/css/main.7fa001f1.css.map",
+    "main.ce88a910.js.map": "/static/js/main.ce88a910.js.map",
+    "845.2e19d72a.chunk.js.map": "/static/js/845.2e19d72a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7fa001f1.css",
-    "static/js/main.b3a6bb89.js"
+    "static/js/main.ce88a910.js"
   ]
 }
